@@ -6,6 +6,8 @@ import {
 } from "react-router-dom";
 import Login from 'pages/Login';
 import Header from 'components/Header';
+import "../src/fontawesome.js";
+
 
 function App() {
   // const token  = localStorage.getItem('token');

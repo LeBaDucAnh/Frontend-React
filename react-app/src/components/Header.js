@@ -3,6 +3,9 @@ import { UserOutlined } from '@ant-design/icons';
 import { Avatar } from 'antd';
 import Search from 'components/Search';
 import Tao from "./Create";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+
 import {
     Link,
     Routes,
@@ -16,12 +19,12 @@ export default function Header() {
         <>
             <div className="navbar navbar-expand-lg navbar-dark d-flex">
                 <div className="navbar-nav collapse navbar-collapse d-flex justify-content-between">
-                    <div className='logo ms-2'>
-                        <h2>Quizzy</h2>
+                    <div className='logo mt-2 ms-2'>
+                        <h2 style={{color: "white"}}>QUIZLEARN</h2>
                     </div>
                     <div ><Link className="nav-item nav-link active text-lg"  to="/">Trang chủ</Link></div>
                     <div><a className="nav-item nav-link" href="#/">Thư viện của bạn</a></div>
-                    <div><Tao/></div>
+                    <div><FontAwesomeIcon icon="fa-solid fa-sort-down" /><Tao/></div>
                     <div><Search/></div>
                 
         

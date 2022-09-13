@@ -6,6 +6,6 @@ const onSearch = (value) => console.log(value);
 
 export default function search() {
     return (
-       <Search style ={{width: "300px"}} allowClear size = "large" placeholder="Học phần, lớp..." onSearch={onSearch} enterButton />
+       <Search style ={{width: "500px"}} allowClear size = "large" placeholder="Học phần, lớp..." onSearch={onSearch} enterButton />
     );
 }
