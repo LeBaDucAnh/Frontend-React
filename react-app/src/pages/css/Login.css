@@ -1,0 +1,23 @@
+.bg-login {
+    position: relative;
+    width: 100%;
+    min-height: auto;
+    background-position: right 0px top 0px;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+  }
+  
+  .login-form {
+    border: 1px solid #DDD;
+    max-width:100%;
+    padding: 20px;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  #login{
+    font-size: 20px;
+  }
