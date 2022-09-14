@@ -5,7 +5,8 @@ import {
   Route
 } from "react-router-dom";
 import Login from 'pages/Login';
-import Header from 'components/Header';
+import Dashboard from 'pages/dashboard';
+import AddClass from 'components/AddClass';
 import "../src/fontawesome.js";
 
 
@@ -14,12 +15,12 @@ function App() {
   // if(!token)  return <Login/>
 
   return(
-
-      <Header/>
-      /* <Routes>
-        <Route path="/" element={<Home />}/>
-        <Route path="/about" element={<About />}/>
-      </Routes> */
+    <>
+       <Routes>
+        <Route path="/" element={<Dashboard />}/>
+        <Route path="/add-class" element={<AddClass />}/>
+      </Routes>
+    </>
   )
 }
 

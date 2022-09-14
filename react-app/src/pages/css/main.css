@@ -1,12 +1,12 @@
 .navbar{
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 30px;
+    font-size: 20px;
     background-color: #282e3e;
     font-weight: bold;
 }
 
 .detail{
-    font-size: 30px;
+    font-size: 20px;
 }
 
 .createList {
@@ -17,7 +17,18 @@
 #lietke{
     list-style: none;
 }
-#lietke li:hover{
-    background: gray;
-
+.detail div{
+    padding: 5px 15px;
 }
+.detail div:hover{
+    background: #d6d6d4;
+}
+
+content{
+    padding: '0 50px';
+}
+
+.infor{
+    font-size: 20px;
+}
+

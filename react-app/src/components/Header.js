@@ -14,9 +14,8 @@ import {
 import "../pages/css/main.css";
 
 
-export default function Header() {
+export default function HeaderPage() {
     return (
-        <>
             <div className="navbar navbar-expand-lg navbar-dark d-flex">
                 <div className="navbar-nav collapse navbar-collapse d-flex justify-content-between">
                     <div className='logo mt-2 ms-2'>
@@ -51,6 +50,5 @@ export default function Header() {
                 </ul>
                 </div>
             </div>
-        </>
     );
 }

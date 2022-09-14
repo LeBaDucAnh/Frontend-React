@@ -1,26 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Popover } from 'antd';
 import "../pages/css/main.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FileFilled, FolderFilled, HomeFilled } from "@ant-design/icons";
+import { Link } from "react-router-dom";
+import AddClass from "./AddClass";
 
-const content = (
-    <div className="detail p-3">
-        <ul id = "lietke">
-            <li><FontAwesomeIcon icon="fa-solid fa-house-blank"/><a>Lớp học</a></li>
-            <li><FontAwesomeIcon icon="fa-solid fa-folder"/><a>Học phần</a></li>
-            <li><FontAwesomeIcon icon="fa-solid fa-folder"/><a>Thư mục</a></li>
-        </ul>
-    </div>
-  );
 
-export default function Tao(){
+
+
+const Choose = () => {
+    const [open, setOpen] = useState(false);
+
+    const hide = () => {
+            setOpen(false);
+        };
+
+    const handleOpenChange = (newOpen) => {
+            setOpen(newOpen);
+        };
+
+    const content = (
+        <div className="detail" >
+                <div><HomeFilled /><AddClass/></div>
+                <div><a><FileFilled /> Học phần</a></div>
+                <div><a><FolderFilled /> Thư mục</a></div>
+                <a onClick={hide}>Close</a>
+        </div>
+    );
+
     return (
-        <>
+        
             <div className="createList nav-link">
-                <Popover content={content} title = "" trigger = "click">
-                    <Button className="dropdown-toggle" data-bs-toggle="dropdown"  style={{width: "200px", height: "50px", fontSize: "25px", fontWeight: "bold"}} type="primary">Tạo</Button>
+                <Popover content={content} title = "" trigger = "click" open={open}  onOpenChange={handleOpenChange} >
+                    <Button className="dropdown-toggle"  style={{width: "80px", height: "40px", fontSize: "20px", fontWeight: "bold"}} type="primary">Tạo</Button>
                 </Popover>
             </div>
-        </>
+        
     );
-}
+};
+
+
+const Tao = () => (
+    <Choose/>
+);
+
+export default Tao;
