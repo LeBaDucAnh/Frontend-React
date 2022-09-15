@@ -32,7 +32,9 @@ export default function AddCourse(){
                         </Form.Item>
                     </Col>
                     <Col span={12}>
-
+                        <div>
+                            <p></p>
+                        </div>
                     </Col>
                 </Row>
                 <Row>

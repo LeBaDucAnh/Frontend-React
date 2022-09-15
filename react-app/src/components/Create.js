@@ -24,34 +24,31 @@ const Choose = () => {
 
     const content = (
 
-        <Menu
-    items={[
-      {
-        label: <div><HomeFilled /><AddClass/></div>,
-        key: '0',
-      },
-      {
-        type: 'divider',
-      },
-      {
-        label: <div><FolderFilled /><AddFolder/></div>,
-        key: '1',
-      },
-      {
-        type: 'divider',
-      },
-      {
-        label: <div><Link to="/add-course"><FileFilled /> Học phần</Link></div>,
-        key: '3',
-      },
-    ]}
-  />
-        // <div className="detail" >
-        //         <div><HomeFilled /><AddClass/></div>
-        //         <div><FolderFilled /><AddFolder/></div>
-        //         <div><Link to="/add-course"><FileFilled /> Học phần</Link></div>
-        //         <a onClick={hide}>Close</a>
-        // </div>
+      <Menu
+        items={[
+          {
+            label: <div><AddClass/></div>,
+            key: '0',
+            icon: <HomeFilled /> 
+          },
+          {
+            type: 'divider',
+          },
+          {
+            label: <div><AddFolder/></div>,
+            key: '1',
+            icon: <FolderFilled />
+          },
+          {
+            type: 'divider',
+          },
+          {
+            label: <div><Link to="/add-course" > Học phần</Link></div>,
+            key: '3',
+            icon: <FileFilled />
+          },
+        ]}
+      />
     );
 
     return (
