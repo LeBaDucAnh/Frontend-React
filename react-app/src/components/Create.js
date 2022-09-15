@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { Button, Popover } from 'antd';
+import { Button, Dropdown, Menu, Popover } from 'antd';
 import "../pages/css/main.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FileFilled, FolderFilled, HomeFilled } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import AddClass from "./AddClass";
+import AddFolder from "./AddFolder";
+import AddCourse from "pages/AddCourse";
 
 
 
@@ -21,20 +23,43 @@ const Choose = () => {
         };
 
     const content = (
-        <div className="detail" >
-                <div><HomeFilled /><AddClass/></div>
-                <div><a><FileFilled /> Học phần</a></div>
-                <div><a><FolderFilled /> Thư mục</a></div>
-                <a onClick={hide}>Close</a>
-        </div>
+
+        <Menu
+    items={[
+      {
+        label: <div><HomeFilled /><AddClass/></div>,
+        key: '0',
+      },
+      {
+        type: 'divider',
+      },
+      {
+        label: <div><FolderFilled /><AddFolder/></div>,
+        key: '1',
+      },
+      {
+        type: 'divider',
+      },
+      {
+        label: <div><Link to="/add-course"><FileFilled /> Học phần</Link></div>,
+        key: '3',
+      },
+    ]}
+  />
+        // <div className="detail" >
+        //         <div><HomeFilled /><AddClass/></div>
+        //         <div><FolderFilled /><AddFolder/></div>
+        //         <div><Link to="/add-course"><FileFilled /> Học phần</Link></div>
+        //         <a onClick={hide}>Close</a>
+        // </div>
     );
 
     return (
         
             <div className="createList nav-link">
-                <Popover content={content} title = "" trigger = "click" open={open}  onOpenChange={handleOpenChange} >
+                <Dropdown overlay={content} trigger = "click" >
                     <Button className="dropdown-toggle"  style={{width: "80px", height: "40px", fontSize: "20px", fontWeight: "bold"}} type="primary">Tạo</Button>
-                </Popover>
+                </Dropdown>
             </div>
         
     );

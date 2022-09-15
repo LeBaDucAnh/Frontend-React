@@ -8,6 +8,12 @@ import Login from 'pages/Login';
 import Dashboard from 'pages/dashboard';
 import AddClass from 'components/AddClass';
 import "../src/fontawesome.js";
+import AddCourse from 'pages/AddCourse';
+
+function LogOut() {
+  localStorage.removeItem("token");
+  window.location.href = "/";
+}
 
 
 function App() {
@@ -18,7 +24,7 @@ function App() {
     <>
        <Routes>
         <Route path="/" element={<Dashboard />}/>
-        <Route path="/add-class" element={<AddClass />}/>
+        <Route path="/add-course" element={<AddCourse />}/>
       </Routes>
     </>
   )

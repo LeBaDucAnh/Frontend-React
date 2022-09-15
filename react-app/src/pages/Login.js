@@ -4,10 +4,36 @@ import "antd/dist/antd.css";
 import { Tabs } from "antd";
 import {Col, Row} from "antd";
 import {Button, Checkbox, Input, Form } from 'antd';
+import React, { useState } from "react";
+import { BASE_URL } from "config";
 
 const {TabPane} = Tabs;
 
 export default function Login(){
+//     const [username, setUsername] = useState('');
+//   const [password, setPassword] = useState('');
+//   const [error, setError] = useState('');
+
+//   const logIn = async function(e) {
+//     e.preventDefault();
+//     let data = {username: username, password: password};
+//     data = JSON.stringify(data);
+//     let options = {
+//       method: "POST",
+//       body: data,
+//       headers: {"Content-Type": "application/json"}
+//     };
+//     let url = BASE_URL + '/api/token';
+//     let resp = await fetch(url, options);
+//     if(resp.status != 200) {
+//       setError('Tên đăng nhập hoặc mật khẩu không đúng')
+//     }else {
+//       let result = await resp.json();
+//       localStorage.setItem('token', result.access);
+//       window.location.href = '/';
+//     }
+//   }
+
     return (
     <>
       <div id="login" className="d-flex">   
@@ -80,14 +106,14 @@ export default function Login(){
             </TabPane>
             <TabPane key="login" tab="Đăng nhập">
             <Col offset={2}>
-                <Form wrapperCol={{span: 22,}} initialValues={{remember: true,}} style={{marginTop: "30px"}}>
+                <Form  wrapperCol={{span: 22,}} initialValues={{remember: true,}} style={{marginTop: "30px"}}>
                     <Form.Item className="mt-3" name="username" rules={[
                             {
                                 required: true,
                                 message: 'Nhập số điện thoại hoặc email!',
                             },
                         ]}>
-                        <Input name="username" type="text" className="" placeholder="Nhập email hoặc số điện thoại" style={{height: "50px"}}/>
+                        <Input name="username" type="text" className="" placeholder="Nhập email hoặc số điện thoại" style={{height: "50px"}} />
                         <label for="username" className="mb-1 mt-2">Số điện thoại/Email</label>
                     </Form.Item>
 
@@ -98,7 +124,7 @@ export default function Login(){
                                 message: 'Nhập mật khẩu!',
                             },
                         ]}>
-                        <Input.Password name="password" placeholder="Nhập mật khẩu" style={{height: "50px"}}/>
+                        <Input.Password name="password" placeholder="Nhập mật khẩu" style={{height: "50px"}} />
                         <label for="password" className="mb-1 mt-2">Mật khẩu</label>
                     </Form.Item>
                     <Form.Item
