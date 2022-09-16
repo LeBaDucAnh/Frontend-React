@@ -14,6 +14,11 @@ import {
 import "../pages/css/main.css";
 
 
+function  logOut() {
+    localStorage.removeItem('token');
+    window.location.href = '/';
+}
+
 export default function HeaderPage() {
     return (
             <div className="navbar navbar-expand-lg navbar-dark d-flex">
@@ -21,8 +26,8 @@ export default function HeaderPage() {
                     <div className='logo mt-2 ms-2'>
                         <h2 style={{color: "white"}}>QUIZLEARN</h2>
                     </div>
-                    <div ><Link className="nav-item nav-link active text-lg"  to="/">Trang chủ</Link></div>
-                    <div><a className="nav-item nav-link" href="#/">Thư viện của bạn</a></div>
+                    <div ><Link className="nav-item nav-link text-lg"  to="/">Trang chủ</Link></div>
+                    <div><Link className="nav-item nav-link" to="/library">Thư viện của bạn</Link></div>
                     <div><FontAwesomeIcon icon="fa-solid fa-sort-down" /><Tao/></div>
                     <div><Search/></div>
                 
@@ -42,7 +47,7 @@ export default function HeaderPage() {
                                 Thông tin tài khoản
                             </a>
                             <div className="dropdown-divider"></div>
-                            <a className="dropdown-item" href="#/">
+                            <a onClick={logOut} className="dropdown-item" href="#/">
                                 Đăng xuất
                             </a>
                         </div>

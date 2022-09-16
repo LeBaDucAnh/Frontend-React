@@ -10,29 +10,53 @@ import { BASE_URL } from "config";
 const {TabPane} = Tabs;
 
 export default function Login(){
-//     const [username, setUsername] = useState('');
-//   const [password, setPassword] = useState('');
-//   const [error, setError] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const [phone, setPhone] = useState('');
+    const [fullname, setFullname] = useState('');
 
-//   const logIn = async function(e) {
-//     e.preventDefault();
-//     let data = {username: username, password: password};
-//     data = JSON.stringify(data);
-//     let options = {
-//       method: "POST",
-//       body: data,
-//       headers: {"Content-Type": "application/json"}
-//     };
-//     let url = BASE_URL + '/api/token';
-//     let resp = await fetch(url, options);
-//     if(resp.status != 200) {
-//       setError('Tên đăng nhập hoặc mật khẩu không đúng')
-//     }else {
-//       let result = await resp.json();
-//       localStorage.setItem('token', result.access);
-//       window.location.href = '/';
-//     }
-//   }
+    const logIn = async function(e) {
+        e.preventDefault();
+        let data = {email: email, password: password};
+        data = JSON.stringify(data);
+        let options = {
+            method: "POST",
+            body: data,
+            headers: {"Content-Type": "application/json"}
+        };
+        let url = BASE_URL + '/api/login';
+        let resp = await fetch(url, options);
+        if(resp.status != 200) {
+            setError('Tên đăng nhập hoặc mật khẩu không đúng')
+        }
+        else {
+            let result = await resp.json();
+            localStorage.setItem('token', result.access);
+            window.location.href = '/';
+        }
+    }
+
+    const signIn = async function(e) {
+        e.preventDefault();
+        let data = {phone:phone, email: email, fullname:fullname, password: password};
+        data = JSON.stringify(data);
+        let options = {
+            method: "POST",
+            body: data,
+            headers: {"Content-Type": "application/json"}
+        };
+        let url = BASE_URL + '/api/register';
+        let resp = await fetch(url, options);
+        if(resp.status != 200) {
+            setError('Nhập đầy đủ thông tin đăng ký')
+        }
+        else {
+            let result = await resp.json();
+            localStorage.setItem('token', result.access);
+            window.location.href = '/';
+        }
+    }
 
     return (
     <>
@@ -52,7 +76,7 @@ export default function Login(){
                                 },
                             ]}>
                             <label for="phone" className="mb-1">Số điện thoại</label>
-                            <Input name="phone" type="text" className="" placeholder="Nhập số điện thoại" style={{height: "50px"}}/>
+                            <Input name="phone" value={phone} type="text" placeholder="Nhập số điện thoại" style={{height: "50px"}} onChange={(e)=>setPhone(e.target.value)}/>
                         </Form.Item>
 
                         <Form.Item className="mt-3" name="email" rules={[
@@ -62,7 +86,7 @@ export default function Login(){
                                 },
                             ]}>
                             <label for="email" className="mb-1">Email</label>
-                            <Input name="email" type="email" className="" placeholder="Nhập email" style={{height: "50px"}}/>
+                            <Input name="email" type="email" value={email} placeholder="Nhập email" style={{height: "50px"}} onChange={(e)=>setEmail(e.target.value)}/>
                         </Form.Item>
 
                         <Form.Item className="mt-3" name="fullname" rules={[
@@ -72,7 +96,7 @@ export default function Login(){
                                 },
                             ]}>
                             <label for="fullname" className="mb-1">Họ và tên</label>
-                            <Input name="fullname" type="text" className="" placeholder="Nhập họ và tên" style={{height: "50px"}}/>
+                            <Input name="fullname" type="text" value={fullname} placeholder="Nhập họ và tên" style={{height: "50px"}} onChange={(e)=>setFullname(e.target.value)}/>
                         </Form.Item>
 
                         <Form.Item className="mt-4" name="password"
@@ -83,7 +107,7 @@ export default function Login(){
                                 },
                             ]}>
                             <label for="password" className="mb-1">Mật khẩu</label>
-                            <Input.Password name="password" placeholder="Nhập mật khẩu" style={{height: "50px"}}/>
+                            <Input.Password name="password" value={password} placeholder="Nhập mật khẩu" style={{height: "50px"}} onChange={(e)=>setPassword(e.target.value)}/>
                             
                         </Form.Item>
                         <Form.Item
@@ -96,35 +120,35 @@ export default function Login(){
                             <Checkbox>Tôi chấp thuận Điều khoản dịch vụ và Chính sách quyền riêng tư của Quizlet</Checkbox>
                         </Form.Item>
                         <div className="mt-3">
-                            <span id="error" style={{color: "red"}}></span>
+                            <span id="error" style={{color: "red"}}>{error}</span>
                         </div>
                         <Form.Item>
-                            <Button htmlType="submit" type="primary" style={{width:"100%", height:"50px"}}>Đăng ký</Button>
+                            <Button htmlType="submit" onClick={signIn} type="primary" style={{width:"100%", height:"50px"}}>Đăng ký</Button>
                         </Form.Item>
                     </Form>
                 </Col>
             </TabPane>
             <TabPane key="login" tab="Đăng nhập">
             <Col offset={2}>
-                <Form  wrapperCol={{span: 22,}} initialValues={{remember: true,}} style={{marginTop: "30px"}}>
+                <Form  wrapperCol={{span: 22,}} initialValues={{remember: true,}} style={{marginTop: "30px"}} onSubmitCapture>
                     <Form.Item className="mt-3" name="username" rules={[
                             {
                                 required: true,
                                 message: 'Nhập số điện thoại hoặc email!',
                             },
                         ]}>
-                        <Input name="username" type="text" className="" placeholder="Nhập email hoặc số điện thoại" style={{height: "50px"}} />
-                        <label for="username" className="mb-1 mt-2">Số điện thoại/Email</label>
+                        <Input name="email" value={email} type="text" className="" placeholder="Nhập email hoặc số điện thoại" style={{height: "50px"}} onChange={(e)=>setEmail(e.target.value)} />
+                        <label for="email" className="mb-1 mt-2">Số điện thoại/Email</label>
                     </Form.Item>
 
-                    <Form.Item className="mt-4" name="password"
+                    <Form.Item className="mt-4" name="passwordForm"
                             rules={[
                             {
                                 required: true,
                                 message: 'Nhập mật khẩu!',
                             },
                         ]}>
-                        <Input.Password name="password" placeholder="Nhập mật khẩu" style={{height: "50px"}} />
+                        <Input.Password name="password" value={password} placeholder="Nhập mật khẩu" style={{height: "50px"}} onChange={(e)=>setPassword(e.target.value)}/>
                         <label for="password" className="mb-1 mt-2">Mật khẩu</label>
                     </Form.Item>
                     <Form.Item
@@ -137,10 +161,10 @@ export default function Login(){
                         <Checkbox>Remember me</Checkbox>
                     </Form.Item>
                     <div className="mt-3">
-                        <span id="error" style={{color: "red"}}></span>
+                        <span id="error" style={{color: "red"}}>{error}</span>
                     </div>
                     <Form.Item>
-                        <Button htmlType="submit" type="primary" style={{width:"100%", height:"50px"}}>Đăng nhập</Button>
+                        <Button htmlType="submit" type="primary" style={{width:"100%", height:"50px"}} onClick={logIn}>Đăng nhập</Button>
                     </Form.Item>
                 </Form>
             </Col>

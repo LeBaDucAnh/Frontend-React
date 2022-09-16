@@ -1,14 +1,17 @@
-import React from "react";
+import React, {useState} from "react";
 import HeaderPage from "components/Header";
-import { Breadcrumb, Form, Layout, Input, Space, Button } from 'antd';
+import { Breadcrumb, Form, Layout, Input, Space, Button, message, Upload } from 'antd';
 import '../pages/css/main.css';
 import {Row, Col} from 'antd';
-import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
-
+import { MinusCircleOutlined, PlusOutlined, LoadingOutlined } from '@ant-design/icons';
+import ImgCrop from 'antd-img-crop';
 
 const { Header, Content, Footer } = Layout;
 
+
+
 export default function AddCourse(){
+
     return(
         <Layout className="addCourse">
         <div><HeaderPage/></div>
@@ -69,7 +72,7 @@ export default function AddCourse(){
                                         },
                                     ]}
                                     >
-                                    <Input style={{width: "600px"}} placeholder="Thuật ngữ" />
+                                    <Input style={{width: "500px"}} placeholder="Thuật ngữ" />
                                     
                                     </Form.Item>
                                     <Form.Item
@@ -81,7 +84,7 @@ export default function AddCourse(){
                                         },
                                     ]}
                                     >
-                                    <Input style={{width: "600px"}} placeholder="Định nghĩa" />
+                                    <Input style={{width: "500px"}} placeholder="Định nghĩa" />
                                     
                                     </Form.Item>
                                     <MinusCircleOutlined onClick={() => remove(name)} />
