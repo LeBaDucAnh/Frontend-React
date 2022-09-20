@@ -6,10 +6,12 @@ import {
 } from "react-router-dom";
 import Login from 'pages/Login';
 import Dashboard from 'pages/dashboard';
-import AddClass from 'components/AddClass';
+import AddClass from 'components/CreateClass';
 import "../src/fontawesome.js";
 import AddCourse from 'pages/AddCourse';
 import Show from 'pages/library';
+import ShowClass from 'pages/class';
+import Folder from 'pages/folder';
 
 function LogOut() {
   localStorage.removeItem("token");
@@ -27,6 +29,8 @@ function App() {
         <Route path="/" element={<Dashboard />}/>
         <Route path="/add-course" element={<AddCourse />}/>
         <Route path="/library" element = {<Show/>}/>
+        <Route path="/class" element={<ShowClass/>}/>
+        <Route path="/folder" element={<Folder/>}/>
       </Routes>
     </>
   )

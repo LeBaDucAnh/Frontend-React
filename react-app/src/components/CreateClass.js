@@ -50,10 +50,10 @@ const LocalizedModal = () => {
       );
     };
 
-const AddClass = () => (
+const CreateClass = () => (
         <Space>
           <LocalizedModal />
         </Space>
 );
 
-export default AddClass;
+export default CreateClass;

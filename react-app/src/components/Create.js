@@ -4,8 +4,8 @@ import "../pages/css/main.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FileFilled, FolderFilled, HomeFilled } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import AddClass from "./AddClass";
-import AddFolder from "./AddFolder";
+import AddClass from "./CreateClass";
+import AddFolder from "./CreateFolder";
 import AddCourse from "pages/AddCourse";
 
 

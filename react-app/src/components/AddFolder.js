@@ -1,52 +1,63 @@
 import React, { useState } from "react";
-import {Form, Button, Modal, Checkbox, Space, Input } from 'antd';
+import { Form, Button, Modal, Checkbox, Space, Input, List } from 'antd';
+import { FolderOutlined, PlusOutlined, MinusOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
+import {Card, Row, Col} from 'antd';
+import CreateFolder from "./CreateFolder";
+
 
 const LocalizedModal = () => {
     const [open, setOpen] = useState(false);
-  
+
     const showModal = () => {
-      setOpen(true);
+        setOpen(true);
     };
-  
+
     const hideModal = () => {
-      setOpen(false);
+        setOpen(false);
     };
     return (
         <>
-          <a onClick={showModal} on>
-            Thư mục
-          </a>
-          <Modal
-            title="Tạo thư mục mới"
-            open={open}
-            onOk={hideModal}
-            okText="Tạo thư mục"
-            onCancel={hideModal}
-            cancelText="Hủy"
-          >
-            <Form>
-                <Form.Item className="mt-3" name="classname" rules={[
-                                {
-                                    required: true,
-                                    message: 'Nhập tên thư mục!',
-                                },
-                            ]}>
-                    <Input type="text" name="classname" placeholder="Nhập tên thư mục"/>
-                </Form.Item>
-                <Form.Item className="mt-3" name = "classdescription">
-                    <Input type="text" name = "classdescription" placeholder="Nhập mô tả(tùy chọn)"/>
-                </Form.Item>  
-            </Form>
-          </Modal>
+            <Button onClick={showModal} shape="circle" className="me-3" icon={<FolderOutlined/>} size={"large"} title="Thêm thư mục"/>
+            <Modal
+                title="Thêm thư mục"
+                open={open}
+                onOk={hideModal}
+                onCancel={hideModal}
+            >
+                <Card style={{ border: 0 }}>
+                    <div className="border pt-3 mb-5 text-center"><p><PlusOutlined /> <CreateFolder/> </p></div>
+                </Card>
+                <Card className="mt-2">
+                    <Row>
+                        <Col span={20}>
+                            <h4>Học lập trình Python</h4>
+                        </Col>
+                        <Col span={4} style={{ textAlign: "right" }}>
+                            <Button type="danger" size="large" icon={<MinusOutlined />} />
+                        </Col>
+                    </Row>
+                </Card>
+                <Card className="mt-2">
+                    <Row>
+                        <Col span={20}>
+                            <h4>Học lập trình Java</h4>
+                        </Col>
+                        <Col span={4} style={{ textAlign: "right" }}>
+                            <Button type="primary" size="large" icon={<PlusOutlined />} />
+                        </Col>
+                    </Row>
+                </Card>
+            </Modal>
         </>
-      );
-    };
+    );
+};
 
 const AddFolder = () => (
-  <Space>
-    <LocalizedModal />
-  </Space>
-          
+    <Space>
+        <LocalizedModal />
+    </Space>
+
 );
 
 export default AddFolder;

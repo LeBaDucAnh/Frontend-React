@@ -4,6 +4,7 @@ import { Breadcrumb, Layout, Tabs, Button, Space, Card } from "antd";
 import { TabPane } from "react-bootstrap";
 import "../pages/css/main.css";
 import {UsergroupAddOutlined, FolderFilled} from '@ant-design/icons';
+import { Link } from "react-router-dom";
 
 const {Header, Content, Footer} = Layout;
 
@@ -23,7 +24,7 @@ export default function Show(){
                         }}>
                         <Card title="" size="small">
                             <p>4 học phần | 2 thành viên | Đại học Công nghiệp Hà Nội</p>
-                            <p><h4><UsergroupAddOutlined />Python Basic</h4></p>
+                            <p><Link to="/class"><h4><UsergroupAddOutlined />Python Basic</h4></Link></p>
                         </Card>
                         <Card title="" size="small">
                             <p>4 học phần | 2 thành viên | Đại học Công nghiệp Hà Nội</p>
@@ -39,8 +40,10 @@ export default function Show(){
                             display: 'flex',
                             }}>
                             <Card title="" size="small">
-                                <p>2 học phần</p>
-                                <p><h4><FolderFilled /> Lập trình Python</h4></p>
+
+                                    <p>2 học phần</p>
+                                    <p><Link to="/folder"><h4><FolderFilled /> Lập trình Python</h4></Link></p>
+                                
                             </Card>
                             <Card title="" size="small">
                                 <p>4 học phần</p>
