@@ -4,7 +4,7 @@ import { Breadcrumb, Form, Layout, Input, Space, Button, message, Upload } from 
 import '../pages/css/main.css';
 import {Row, Col} from 'antd';
 import { MinusCircleOutlined, PlusOutlined, LoadingOutlined } from '@ant-design/icons';
-import ImgCrop from 'antd-img-crop';
+
 
 const { Header, Content, Footer } = Layout;
 

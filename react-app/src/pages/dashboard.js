@@ -6,6 +6,8 @@ import '../pages/css/main.css';
 import { Breadcrumb, Layout, Menu } from 'antd';
 import { UsergroupAddOutlined, HomeOutlined, FileTextOutlined, UserOutlined, DatabaseFilled } from '@ant-design/icons';
 import { BASE_URL} from "config";
+import { Link } from "react-router-dom";
+
 
 
 function getClassList(store){
@@ -36,16 +38,16 @@ export default function Dashboard(){
             <Breadcrumb.Item>Trang chủ</Breadcrumb.Item>
             <Breadcrumb.Item>Lớp</Breadcrumb.Item>
         </Breadcrumb>
-            <div className="m-2"><span><h4>Lớp của bạn: </h4></span></div>
+            <div className="m-2"><span><h4><Link to="/class">Lớp của bạn: </Link></h4></span></div>
             <div className="infor m-3"><UsergroupAddOutlined /><span>{total} lớp học được tạo</span></div>
             <Row gutter={16} className="mb-3">
             {classList.map(lop =>
                 <Col span={8} key={lop.id}>
-                    <Card title={lop.classname} bordered={false}>
+                    <Card title={lop.classname} bordered={false}> 
                         <div><HomeOutlined /> <span>{lop.schoolname}</span></div>
                         <div><FileTextOutlined /> <span>2 học phần</span></div>
                         <div><UserOutlined /> <span>4 thành viên</span></div>
-                    </Card>
+                     </Card>
                 </Col>
             )}
             </Row>
