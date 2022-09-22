@@ -38,7 +38,7 @@ export default function Dashboard(){
             <Breadcrumb.Item>Trang chủ</Breadcrumb.Item>
             <Breadcrumb.Item>Lớp</Breadcrumb.Item>
         </Breadcrumb>
-            <div className="m-2"><span><h4><Link to="/class">Lớp của bạn: </Link></h4></span></div>
+            <div className="m-2"><span><h4>Lớp của bạn: </h4></span></div>
             <div className="infor m-3"><UsergroupAddOutlined /><span>{total} lớp học được tạo</span></div>
             <Row gutter={16} className="mb-3">
             {classList.map(lop =>

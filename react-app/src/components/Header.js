@@ -24,7 +24,9 @@ export default function HeaderPage() {
             <div className="navbar navbar-expand-lg navbar-dark d-flex">
                 <div className="navbar-nav collapse navbar-collapse d-flex justify-content-between">
                     <div className='logo mt-2 ms-2'>
-                        <h2 style={{color: "white"}}>QUIZLEARN</h2>
+                        <Link to="/">
+                            <h2 style={{color: "white"}} className="nav-link">QUIZLEARN</h2>
+                        </Link>
                     </div>
                     <div ><Link className="nav-item nav-link text-lg"  to="/">Trang chủ</Link></div>
                     <div><Link className="nav-item nav-link" to="/library">Thư viện của bạn</Link></div>

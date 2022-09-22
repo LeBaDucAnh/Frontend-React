@@ -59,8 +59,10 @@ export default function Show(){
                             display: 'flex',
                             }}>
                             <Card title="" size="small">
-                                <p>6 thuật ngữ | Đức Anh Lê Bá</p>
-                                <p><h4> Học lập trình Python</h4></p>
+                                <Link to="/learn-course">
+                                    <p>6 thuật ngữ | Đức Anh Lê Bá</p>
+                                    <p><h4> Học lập trình Python</h4></p> 
+                                </Link>
                             </Card>
                             <Card title="" size="small">
                                 <p>6 thuật ngữ | Đức Anh Lê Bá</p>
