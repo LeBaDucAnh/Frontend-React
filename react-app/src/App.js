@@ -14,6 +14,7 @@ import ShowClass from 'pages/class';
 import Folder from 'pages/folder';
 import course_learn from 'pages/learn_course';
 import Course from 'pages/learn_course';
+import EditCourse from 'pages/EditCourse';
 
 function LogOut() {
   localStorage.removeItem("token");
@@ -33,7 +34,8 @@ function App() {
         <Route path="/library" element = {<Show/>}/>
         <Route path="/class" element={<ShowClass/>}/>
         <Route path="/folder" element={<Folder/>}/>
-        <Route path='/learn-course' element={<Course/>} />
+        <Route path='/learn-course' element={<Course/>}/>
+        <Route path='/edit-course' element={<EditCourse/>}/>
       </Routes>
     </>
   )
