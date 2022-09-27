@@ -43,11 +43,13 @@ export default function Dashboard(){
             <Row gutter={16} className="mb-3">
             {classList.map(lop =>
                 <Col span={8} key={lop.id}>
-                    <Card title={lop.classname} bordered={false}> 
-                        <div><HomeOutlined /> <span>{lop.schoolname}</span></div>
-                        <div><FileTextOutlined /> <span>2 học phần</span></div>
-                        <div><UserOutlined /> <span>4 thành viên</span></div>
-                     </Card>
+                    <Link to={"/class/"+lop.id}>
+                        <Card title={lop.classname} bordered={false}> 
+                            <div><HomeOutlined /> <span>{lop.schoolname}</span></div>
+                            <div><FileTextOutlined /> <span>2 học phần</span></div>
+                            <div><UserOutlined /> <span>4 thành viên</span></div>
+                        </Card>
+                     </Link>
                 </Col>
             )}
             </Row>

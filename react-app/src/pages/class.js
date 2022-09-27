@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Layout, Tabs, Button, Space, Card, Row, Col, Popover, Menu, Dropdown, Modal, Select } from 'antd';
 import HeaderPage from "components/Header";
 import "./css/main.css";
 import { DeleteFilled, DeleteOutlined, MinusOutlined, EditFilled, UserOutlined, FolderFilled, PlusOutlined, EllipsisOutlined, BankFilled, BookFilled, InfoCircleFilled } from "@ant-design/icons";
 import { TabPane } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import AddUser from "components/AddUser";
 import AddFolder from "components/AddFolder";
 import EditClass from "components/EditClass";
 import DeleteClass from "components/DeleteClass";
-
+import { BASE_URL } from "config";
 
 const { Header, Content, Footer } = Layout;
 const { Option } = Select;
@@ -76,6 +76,13 @@ export default function ShowClass() {
         setIsModalOpen(false);
     };
 
+    const {id} = useParams();
+    const [lop, setLop] = useState({});
+
+    useEffect(function(){
+        let url = BASE_URL + "/api/get-class-by/" + id;
+        fetch(url).then(resp=>resp.json()).then(result => setLop(result));
+    }, []);
 
     return (
         <Layout className="layout">
@@ -84,7 +91,7 @@ export default function ShowClass() {
                 <div>
                     <Row>
                         <Col span={12}>
-                            <h3><UserOutlined /> CNTT3</h3>
+                            <h3><UserOutlined /> {lop.classname}</h3>
                         </Col>
                         <Col span={12} style={{ textAlign: "right" }}>
                             <Button shape="circle" className="me-3" icon={<PlusOutlined />} size={"large"} onClick={showModal} title="Thêm học phần" />
@@ -194,10 +201,10 @@ export default function ShowClass() {
                     </Col>
                     <Col span={8} className="ps-5 pt-3">
                         <h5>Chi tiết lớp học</h5>
-                        <p><BankFilled /> HaUI - Hanoi University of Industry, Hanoi</p>    
+                        <p><BankFilled /> {lop.schoolname}</p>    
                         <p><BookFilled /> 4 học phần</p>
                         <p><UserOutlined /> 2 thành viên</p>
-                        <p><InfoCircleFilled /> Lớp dành cho sv lớp CNTT3-K14</p>     
+                        <p><InfoCircleFilled /> {lop.description}</p>     
                     </Col>
                 </Row>
             </Content>

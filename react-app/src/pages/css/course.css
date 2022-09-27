@@ -72,3 +72,16 @@
 .react-slideshow-container + div.indicators > div:last-of-type {
   margin-right: 10px;
 }
+
+.list-detail{
+  width: 70%;
+  font-size: 20px;
+}
+
+.editxoa{
+  font-size: 20px;
+  padding: 10px;
+  height: 70px;
+  margin-left: 300px;
+  border-radius: 5px;
+}

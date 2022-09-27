@@ -24,7 +24,7 @@ export default function HeaderPage() {
             <div className="navbar navbar-expand-lg navbar-dark d-flex">
                 <div className="navbar-nav collapse navbar-collapse d-flex justify-content-between">
                     <div className='logo mt-2 ms-2'>
-                        <Link to="/">
+                        <Link to="/edit-info">
                             <h2 style={{color: "white"}} className="nav-link">QUIZLEARN</h2>
                         </Link>
                     </div>
@@ -45,9 +45,13 @@ export default function HeaderPage() {
                             />
                         </a>
                         <div className="dropdown-menu dropdown-menu-end me-2">
-                            <a className="dropdown-item" href="#/">
+                            <div className="more-info" style={{fontSize: "13px"}}>
+                                <p className="ms-2">Le Ba Duc Anh</p>
+                            </div>
+                            <div className="dropdown-divider"></div>
+                            <Link to="/edit-info"><p className="dropdown-item">
                                 Thông tin tài khoản
-                            </a>
+                            </p></Link>
                             <div className="dropdown-divider"></div>
                             <a onClick={logOut} className="dropdown-item" href="#/">
                                 Đăng xuất
