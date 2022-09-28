@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Layout, Tabs, Button, Space, Card, Row, Col, Popover, Menu, Dropdown, Modal, Select } from 'antd';
 import HeaderPage from "components/Header";
 import "./css/main.css";
-import { DeleteFilled, DeleteOutlined, MinusOutlined, EditFilled, UserOutlined, FolderFilled, PlusOutlined, EllipsisOutlined, BankFilled, BookFilled, InfoCircleFilled } from "@ant-design/icons";
+import { DeleteOutlined, MinusOutlined, EditFilled, UserOutlined, FolderFilled, PlusOutlined, EllipsisOutlined, BankFilled, BookFilled, InfoCircleFilled } from "@ant-design/icons";
 import { TabPane } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 import AddUser from "components/AddUser";

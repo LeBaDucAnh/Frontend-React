@@ -34,7 +34,7 @@ function App() {
         <Route path="/add-course" element={<AddCourse />}/>
         <Route path="/library" element = {<Show/>}/>
         <Route path="/class/:id" element={<ShowClass/>}/>
-        <Route path="/folder" element={<Folder/>}/>
+        <Route path="/folder/:id" element={<Folder/>}/>
         <Route path='/learn-course' element={<Course/>}/>
         <Route path='/edit-course' element={<EditCourse/>}/>
         <Route path='/edit-info' element={<EditInfo/>}/>  

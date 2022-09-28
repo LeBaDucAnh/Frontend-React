@@ -1,12 +1,14 @@
-import React, {useState} from "react";
-import { Breadcrumb, Layout, Menu, Button, Dropdown, Modal, Select } from 'antd';
+import React, {useState, useEffect} from "react";
+import {Layout, Menu, Button, Dropdown, Modal, Select } from 'antd';
 import HeaderPage from "components/Header";
 import {Card, Col, Row, Space } from 'antd';
 import "./css/main.css";
 import { FolderFilled, EditOutlined, DeleteOutlined, EllipsisOutlined, PlusOutlined, MinusOutlined } from '@ant-design/icons';
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import DeleteFolder from "components/DeleteFolder";
 import EditFolder from "components/EditFolder";
+import { BASE_URL } from "config";
+
 
 const { Header, Content, Footer } = Layout;
 const { Option } = Select;
@@ -50,13 +52,21 @@ export default function Folder(){
         setIsModalOpen(false);
       };
 
+    const {id} = useParams();
+    const [folder, setFolder] = useState({});
+
+    useEffect(function(){
+      let url = BASE_URL + '/api/get-folder-by/'+id;
+      fetch(url).then(resp=>resp.json()).then(result => setFolder(result));
+    }, [])
+
     return (
         <Layout className="layout">
             <div><HeaderPage/></div>
             <Content className="site-card-wrapper m-3">
                 <Row>
                     <Col span={12}>
-                        <div className="m-2"><h3><FolderFilled/> Lập trình Python</h3></div>
+                        <div className="m-2"><h3><FolderFilled/> {folder.foldername}</h3></div>
                     </Col>
                     <Col span={12} style={{textAlign: "right"}}>
                         <Button shape="circle" icon={<PlusOutlined />} onClick={showModal} size="large" className="me-2"/>
