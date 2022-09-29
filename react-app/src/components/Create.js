@@ -6,9 +6,6 @@ import { FileFilled, FolderFilled, HomeFilled } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import AddClass from "./CreateClass";
 import AddFolder from "./CreateFolder";
-import AddCourse from "pages/AddCourse";
-
-
 
 
 const Choose = () => {
@@ -43,7 +40,7 @@ const Choose = () => {
             type: 'divider',
           },
           {
-            label: <div><Link to="/add-course" > Học phần</Link></div>,
+            label: <Link to="/add-course" > <div>Học phần</div></Link>,
             key: '3',
             icon: <FileFilled />
           },

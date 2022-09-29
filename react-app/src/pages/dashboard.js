@@ -42,7 +42,7 @@ export default function Dashboard(){
             <div className="infor m-3"><UsergroupAddOutlined /><span>{total} lớp học được tạo</span></div>
             <Row gutter={16} className="mb-3">
             {classList.map(lop =>
-                <Col span={8} key={lop.id}>
+                <Col span={8} key={lop.id} className="mb-3">
                     <Link to={"/class/"+lop.id}>
                         <Card title={lop.classname} bordered={false}> 
                             <div><HomeOutlined /> <span>{lop.schoolname}</span></div>
