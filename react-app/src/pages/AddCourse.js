@@ -14,7 +14,6 @@ export default function AddCourse(){
 
     return(
         <Layout className="addCourse">
-        <div><HeaderPage/></div>
         <Content className="site-card=wrapper m-3">
             <Breadcrumb style={{margin: '16px 0',}}>
                 <Breadcrumb.Item>Trang chủ</Breadcrumb.Item>

@@ -24,9 +24,6 @@ export default function EditCourse() {
 
     return (
         <Layout className="layout">
-            <div>
-                <HeaderPage />
-            </div>
             <Content className="m-3">
                 <div className="m-2">
                     <Row>

@@ -9,7 +9,6 @@ const { Header, Content, Footer } = Layout;
 export default function EditInfo(){
     return (
         <Layout>
-            <div><HeaderPage/></div>
             <Content className="layout mt-5">
                 <h4>Chỉnh sửa thông tin cá nhân</h4>
                 <Row className="ms-5">

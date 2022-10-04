@@ -62,7 +62,6 @@ export default function Folder(){
 
     return (
         <Layout className="layout">
-            <div><HeaderPage/></div>
             <Content className="site-card-wrapper m-3">
                 <Row>
                     <Col span={12}>

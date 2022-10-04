@@ -10,6 +10,7 @@ import AddFolder from "components/AddFolder";
 import EditClass from "components/EditClass";
 import DeleteClass from "components/DeleteClass";
 import { BASE_URL } from "config";
+import { useSliceSelector, useSliceStore } from "utils/reduxHelper";
 
 const { Header, Content, Footer } = Layout;
 const { Option } = Select;
@@ -62,6 +63,28 @@ const menu1 = (
     />
 );
 
+
+// function GetClass(store){
+//     // const {id} = useParams();
+
+//     // let url = BASE_URL + "/api/getClassBy/" + id;
+//     // console.log(url);
+//     // let options = {
+//     //     headers: {
+//     //       "Authorization": "Bearer " + localStorage.getItem("token")
+//     //     }
+//     // };
+//     // fetch(url, options).then(resp=>resp.json()).then(
+//     //     result => {
+//     //         store.setState({
+//     //             lop: result.data,
+//     //             numberOfCourse: result.numberOfCourse,
+//     //             numberOfMember: result.numberOfMember
+//     //         })
+//     //     }
+//     // );
+// }
+
 export default function ShowClass() {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -75,23 +98,31 @@ export default function ShowClass() {
     const handleCancel = () => {
         setIsModalOpen(false);
     };
-
     const {id} = useParams();
     const [lop, setLop] = useState({});
 
-    useEffect(function(){
-        let url = BASE_URL + "/api/get-class-by/" + id;
-        fetch(url).then(resp=>resp.json()).then(result => setLop(result));
-    }, []);
+    // const store = useSliceStore('class');
+    //const [lop, numberOfCourse, numberOfMember] = useSliceSelector('class', ['lop','numberOfCourse', 'numberOfMember']);
 
+    useEffect(function(){
+        // GetClass(store);
+        let url = BASE_URL + "/api/getClassBy/" + id;
+        let options = {
+            headers: {
+              "Authorization": "Bearer " + localStorage.getItem("token")
+            }
+          };
+        console.log(url);
+        fetch(url, options).then(resp=>resp.json()).then(result => setLop(result));
+    }, []);
+    
     return (
         <Layout className="layout">
-            <div><HeaderPage /></div>
             <Content className="site-card-wrapper m-3">
                 <div>
                     <Row>
                         <Col span={12}>
-                            <h3><UserOutlined /> {lop.classname}</h3>
+                            {/* <h3><UserOutlined /> {lop.data.classname}</h3> */}
                         </Col>
                         <Col span={12} style={{ textAlign: "right" }}>
                             <Button shape="circle" className="me-3" icon={<PlusOutlined />} size={"large"} onClick={showModal} title="Thêm học phần" />
@@ -201,10 +232,10 @@ export default function ShowClass() {
                     </Col>
                     <Col span={8} className="ps-5 pt-3">
                         <h5>Chi tiết lớp học</h5>
-                        <p><BankFilled /> {lop.schoolname}</p>    
-                        <p><BookFilled /> 4 học phần</p>
-                        <p><UserOutlined /> 2 thành viên</p>
-                        <p><InfoCircleFilled /> {lop.description}</p>     
+                       {/* <p><BankFilled /> {lop.data.schoolname}</p>     */}
+                        <p><BookFilled /> {lop.numberOfCourse} học phần </p>
+                        <p><UserOutlined /> {lop.numberOfMember} thành viên</p>
+                         {/* <p><InfoCircleFilled /> {lop.data.description}</p>       */}
                     </Col>
                 </Row>
             </Content>

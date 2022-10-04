@@ -16,6 +16,7 @@ import course_learn from 'pages/learn_course';
 import Course from 'pages/learn_course';
 import EditCourse from 'pages/EditCourse';
 import EditInfo from 'pages/editInfo';
+import HeaderPage from 'components/Header';
 
 function LogOut() {
   localStorage.removeItem("token");
@@ -29,6 +30,7 @@ function App() {
 
   return(
     <>
+    <HeaderPage/>
       <Routes>
         <Route path="/" element={<Dashboard />}/>
         <Route path="/add-course" element={<AddCourse />}/>

@@ -12,7 +12,12 @@ import { BASE_URL } from "config";
 const { Header, Content, Footer } = Layout;
 
 function getClassList(store) {
-    let url = BASE_URL + '/api/class-all/';
+    let url = BASE_URL + '/api/classAll/';
+    let options = {
+        headers: {
+          "Authorization": "Bearer " + localStorage.getItem("token")
+        }
+      };
     fetch(url).then(resp => resp.json()).then(
         result => {
             store.setState({
@@ -22,7 +27,12 @@ function getClassList(store) {
 }
 
 function getFolderList(store) {
-    let url = BASE_URL + '/api/folder-all/';
+    let url = BASE_URL + '/api/folderAll/';
+    let options = {
+        headers: {
+          "Authorization": "Bearer " + localStorage.getItem("token")
+        }
+      };
     fetch(url).then(resp => resp.json()).then(
         result =>
             store.setState({
@@ -44,7 +54,6 @@ export default function Show() {
 
     return (
         <Layout className="showClass">
-            <div><HeaderPage /></div>
             <Content className="site-card=wrapper m-3">
                 <Tabs defaultActiveKey="class" className="ms-5">
                     <TabPane key="class" tab="Lớp học">

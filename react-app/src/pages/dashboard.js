@@ -11,8 +11,13 @@ import { Link } from "react-router-dom";
 
 
 function getClassList(store){
-    let url = BASE_URL + '/api/search-class';
-    fetch(url).then(resp => resp.json()).then(
+    let url = BASE_URL + '/api/searchClass';
+    let options = {
+        headers: {
+          "Authorization": "Bearer " + localStorage.getItem("token")
+        }
+      };
+    fetch(url, options).then(resp => resp.json()).then(
         result=>{
             store.setState({
                 classList: result.data,
@@ -32,7 +37,6 @@ export default function Dashboard(){
     }, []);
     return(
         <Layout className="layout">
-        <div><HeaderPage/></div>
         <Content className="site-card-wrapper m-3">
         <Breadcrumb style={{margin: '16px 0',}}>
             <Breadcrumb.Item>Trang chủ</Breadcrumb.Item>

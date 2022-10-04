@@ -31,7 +31,6 @@ function Course() {
 
     return (
         <Layout>
-            <div><HeaderPage /></div>
             <Content>
                 <div className="mt-3">
                     <Row>
