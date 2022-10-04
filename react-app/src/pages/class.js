@@ -99,7 +99,7 @@ export default function ShowClass() {
         setIsModalOpen(false);
     };
     const {id} = useParams();
-    const [lop, setLop] = useState({});
+    const [classRecord, setClassRecord] = useState({});
 
     // const store = useSliceStore('class');
     //const [lop, numberOfCourse, numberOfMember] = useSliceSelector('class', ['lop','numberOfCourse', 'numberOfMember']);
@@ -113,7 +113,7 @@ export default function ShowClass() {
             }
           };
         console.log(url);
-        fetch(url, options).then(resp=>resp.json()).then(result => setLop(result));
+        fetch(url, options).then(resp=>resp.json()).then(result => setClassRecord(result));
     }, []);
     
     return (
@@ -122,7 +122,7 @@ export default function ShowClass() {
                 <div>
                     <Row>
                         <Col span={12}>
-                            {/* <h3><UserOutlined /> {lop.data.classname}</h3> */}
+                            <h3><UserOutlined /> {classRecord?.data?.classname}</h3>
                         </Col>
                         <Col span={12} style={{ textAlign: "right" }}>
                             <Button shape="circle" className="me-3" icon={<PlusOutlined />} size={"large"} onClick={showModal} title="Thêm học phần" />
@@ -232,10 +232,10 @@ export default function ShowClass() {
                     </Col>
                     <Col span={8} className="ps-5 pt-3">
                         <h5>Chi tiết lớp học</h5>
-                       {/* <p><BankFilled /> {lop.data.schoolname}</p>     */}
-                        <p><BookFilled /> {lop.numberOfCourse} học phần </p>
-                        <p><UserOutlined /> {lop.numberOfMember} thành viên</p>
-                         {/* <p><InfoCircleFilled /> {lop.data.description}</p>       */}
+                       <p><BankFilled /> {classRecord?.data?.schoolname}</p>
+                        <p><BookFilled />Học phần {classRecord.numberOfCourse}  </p>
+                        <p><UserOutlined />Thành viên {classRecord.numberOfMember} </p>
+                        <p><InfoCircleFilled /> {classRecord?.data?.description}</p>
                     </Col>
                 </Row>
             </Content>
