@@ -112,7 +112,7 @@ export default function ShowClass() {
               "Authorization": "Bearer " + localStorage.getItem("token")
             }
           };
-        console.log(url);
+        //console.log(url);
         fetch(url, options).then(resp=>resp.json()).then(result => setClassRecord(result));
     }, []);
     

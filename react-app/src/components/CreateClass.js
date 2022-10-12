@@ -31,7 +31,7 @@ const LocalizedModal = () => {
         body: data,
         headers: {"Content-type":"application/json"}
       };
-      let url = BASE_URL + "/api/create-class/";
+      let url = BASE_URL + "/api/createClass/";
       let resp = await fetch(url, options);
       if(resp.status != 200){
         alert('Không thể tạo lớp');

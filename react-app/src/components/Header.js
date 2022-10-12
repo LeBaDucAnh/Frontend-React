@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { UserOutlined } from '@ant-design/icons';
 import { Avatar } from 'antd';
 import Search from 'components/Search';
 import Tao from "./Create";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
+import { BASE_URL } from "config";
 
 import {
     Link,
@@ -19,7 +19,27 @@ function  logOut() {
     window.location.href = '/';
 }
 
+
+
 export default function HeaderPage() {
+
+    const UserView = async function(e){
+        const [userRecord, setUserRecord] = useState({});
+        useEffect(
+            function(){
+                let url = BASE_URL + "/api/user";
+                console.log(url);
+                let options = {
+                    headers: {
+                        "Authorization": "Bearer " + localStorage.getItem("token")
+                    }
+                };
+                fetch(url, options).then(resp=>resp.json()).then(result => setUserRecord(result));
+            }, []);
+        
+        console.log(userRecord);
+    }
+
     return (
             <div className="navbar navbar-expand-lg navbar-dark d-flex">
                 <div className="navbar-nav collapse navbar-collapse d-flex justify-content-between">
@@ -33,7 +53,7 @@ export default function HeaderPage() {
                     <div><FontAwesomeIcon icon="fa-solid fa-sort-down" /><Tao/></div>
                     <div><Search/></div>
                 
-        
+
                 <ul className="navbar-nav ml-auto" style = {{marginRight: "10px"}}>
                     <li className="nav-item no-arrow">
                         <a className="nav-link dropdown-toggle p-0" data-bs-toggle="dropdown" href="void(0)">
