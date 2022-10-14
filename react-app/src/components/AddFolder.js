@@ -4,6 +4,8 @@ import { FolderOutlined, PlusOutlined, MinusOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import {Card, Row, Col} from 'antd';
 import CreateFolder from "./CreateFolder";
+import { BASE_URL } from "config";
+
 
 
 const LocalizedModal = () => {
@@ -16,6 +18,7 @@ const LocalizedModal = () => {
     const hideModal = () => {
         setOpen(false);
     };
+
     return (
         <>
             <Button onClick={showModal} shape="circle" className="me-3" icon={<FolderOutlined/>} size={"large"} title="Thêm thư mục"/>

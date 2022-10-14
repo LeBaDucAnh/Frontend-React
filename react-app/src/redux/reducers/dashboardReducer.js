@@ -4,7 +4,8 @@ export const Action = {
   
   const initialState = {
     classList: [],
-    total: 0
+    total: 0,
+    classListAll: [],
   }
   
   const reducer = (state=initialState, action) => {

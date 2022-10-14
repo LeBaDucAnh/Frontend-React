@@ -7,6 +7,7 @@ import {Button, Checkbox, Input, Form } from 'antd';
 import React, { useState } from "react";
 import { BASE_URL } from "config";
 import { connect } from "react-redux";
+import { useCookies } from "react-cookie";
 
 
 const {TabPane} = Tabs;
@@ -17,6 +18,7 @@ export default function Login(){
     const [error, setError] = useState('');
     const [phone, setPhone] = useState('');
     const [fullname, setFullname] = useState('');
+    const [cookies, setCookies, removeCookies] = useCookies(['jwt']);
 
     const LogIn = async function(e) {
         e.preventDefault();
@@ -25,6 +27,7 @@ export default function Login(){
         data = JSON.stringify(data);
         let options = {
             method: "POST",
+            credentials: 'same-origin',
             body: data,
             headers: {"Content-Type": "application/json"}
         };
@@ -37,12 +40,18 @@ export default function Login(){
         else {
             let result = await resp.json();
             localStorage.setItem('token', result.jwt);
+            localStorage.setItem('user', JSON.stringify(result.data))
+            localStorage.setItem("userid", result.data.id)
+            setCookies("jwt", result.jwt, {path: "/"});
+            // console.log(token);
             alert("Dang nhap thanh cong");
             console.log(url);
             console.log(result);
+            //console.log(token);
             window.location.href = '/';
         }
     }
+    
 
     const signIn = async function(e) {
         e.preventDefault();

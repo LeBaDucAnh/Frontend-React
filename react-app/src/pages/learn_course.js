@@ -3,7 +3,7 @@ import HeaderPage from "components/Header";
 import ReactCardFlip from "react-card-flip";
 import "./css/course.css";
 import "./css/main.css";
-import { Button, Layout, Row, Col, Avatar, Tabs, Menu, Dropdown, Modal, Card } from 'antd';
+import { Button, Breadcrumb, Layout, Row, Col, Avatar, Tabs, Menu, Dropdown, Modal, Card } from 'antd';
 import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css'
 import { UserOutlined, SnippetsFilled, EditOutlined } from '@ant-design/icons';
@@ -32,6 +32,10 @@ function Course() {
     return (
         <Layout>
             <Content>
+            <Breadcrumb style={{margin: '16px 10px',}}>
+                <Breadcrumb.Item>Trang chủ</Breadcrumb.Item>
+                <Breadcrumb.Item>Học phần</Breadcrumb.Item>
+            </Breadcrumb>
                 <div className="mt-3">
                     <Row>
                         <Col span={12} className="ps-5">

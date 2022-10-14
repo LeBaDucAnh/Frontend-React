@@ -15,10 +15,11 @@ const LocalizedModal = () => {
 
     const [foldername, setFoldername] = useState('');
     const [description, setDescription] = useState('');
+    const user = localStorage.getItem("userid");
 
     const createFolder = async function(e){
       e.preventDefault();
-      let data = {foldername: foldername, description: description};
+      let data = {foldername: foldername, description: description, userID: user};
       data = JSON.stringify(data);
       let options = {
         method: "POST",

@@ -60,29 +60,36 @@ export default function AddCourse() {
                                 <Input type="text" className="mt-2 mb-2" name="descourse" placeholder="Thêm mô tả..." value={description} onChange={(e) => setDescription(e.target.value)} />
                             </Form.Item>
                         </Col>
-                        <Col span={12} style={{ textAlign: "right" }}>
+                        <Col span={12} style={{paddingLeft: "200px"}}>
                             <div>
-                                <label>Hiển thị với</label>
-                                <Select style={{
-                                    width: 120, marginLeft: 50, marginBottom: 50
-                                }} defaultValue="people">
-                                    <Option value="people">
+                                <p><b>Hiển thị học phần</b></p>
+                                <Select defaultValue="default"
+                                        style={{
+                                            width: 120,
+                                        }}
+                                        placement="bottomLeft"
+                                        >
+                                    <Option value = "default">
                                         Mọi người
                                     </Option>
-                                    <Option value="myself">
-                                        chỉ tôi
+                                    <Option value = "privacy">
+                                        Chỉ tôi
                                     </Option>
                                 </Select>
                             </div>
+                            <br/>
                             <div>
-                                <label>Ai có thể sửa</label>
-                                <Select style={{
-                                    width: 120, marginLeft: 50
-                                }} defaultValue="people">
-                                    <Option value="people">
-                                        Mọi người
+                                <p><b>Chỉnh sửa học phần</b></p>
+                                <Select defaultValue="default"
+                                        style={{
+                                            width: 180,
+                                        }}
+                                        placement="bottomLeft"
+                                        >
+                                    <Option value = "default">
+                                        Mọi người trong lớp
                                     </Option>
-                                    <Option value="myself">
+                                    <Option value = "privacy">
                                         Chỉ tôi
                                     </Option>
                                 </Select>

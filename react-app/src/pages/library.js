@@ -12,28 +12,29 @@ import { BASE_URL } from "config";
 const { Header, Content, Footer } = Layout;
 
 function getClassList(store) {
-    let url = BASE_URL + '/api/classAll/';
+    let url = BASE_URL + '/api/getClassByIDCreator/'+localStorage.getItem("userid");
     let options = {
         headers: {
           "Authorization": "Bearer " + localStorage.getItem("token")
         }
       };
-    fetch(url).then(resp => resp.json()).then(
+    fetch(url, options).then(resp => resp.json()).then(
         result => {
             store.setState({
-                classList: result,
+                classList: result.data,
             })
         })
 }
 
 function getFolderList(store) {
-    let url = BASE_URL + '/api/folderAll/';
+    let url = BASE_URL + '/api/getFolderByIDCreator/'+localStorage.getItem("userid");
+    console.log(url);
     let options = {
         headers: {
           "Authorization": "Bearer " + localStorage.getItem("token")
         }
       };
-    fetch(url).then(resp => resp.json()).then(
+    fetch(url, options).then(resp => resp.json()).then(
         result =>
             store.setState({
                 folderList: result,

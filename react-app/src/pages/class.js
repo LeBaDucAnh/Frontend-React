@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Layout, Tabs, Button, Space, Card, Row, Col, Popover, Menu, Dropdown, Modal, Select } from 'antd';
+import { Layout, Breadcrumb, Tabs, Button, Space, Card, Row, Col, Popover, Menu, Dropdown, Modal, Select } from 'antd';
 import HeaderPage from "components/Header";
 import "./css/main.css";
 import { DeleteOutlined, MinusOutlined, EditFilled, UserOutlined, FolderFilled, PlusOutlined, EllipsisOutlined, BankFilled, BookFilled, InfoCircleFilled } from "@ant-design/icons";
@@ -63,28 +63,6 @@ const menu1 = (
     />
 );
 
-
-// function GetClass(store){
-//     // const {id} = useParams();
-
-//     // let url = BASE_URL + "/api/getClassBy/" + id;
-//     // console.log(url);
-//     // let options = {
-//     //     headers: {
-//     //       "Authorization": "Bearer " + localStorage.getItem("token")
-//     //     }
-//     // };
-//     // fetch(url, options).then(resp=>resp.json()).then(
-//     //     result => {
-//     //         store.setState({
-//     //             lop: result.data,
-//     //             numberOfCourse: result.numberOfCourse,
-//     //             numberOfMember: result.numberOfMember
-//     //         })
-//     //     }
-//     // );
-// }
-
 export default function ShowClass() {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -98,27 +76,28 @@ export default function ShowClass() {
     const handleCancel = () => {
         setIsModalOpen(false);
     };
+    
     const {id} = useParams();
     const [classRecord, setClassRecord] = useState({});
-
-    // const store = useSliceStore('class');
-    //const [lop, numberOfCourse, numberOfMember] = useSliceSelector('class', ['lop','numberOfCourse', 'numberOfMember']);
-
-    useEffect(function(){
-        // GetClass(store);
-        let url = BASE_URL + "/api/getClassBy/" + id;
-        let options = {
-            headers: {
-              "Authorization": "Bearer " + localStorage.getItem("token")
-            }
-          };
-        //console.log(url);
-        fetch(url, options).then(resp=>resp.json()).then(result => setClassRecord(result));
+    useEffect(
+        function(){
+            let url = BASE_URL + "/api/getClassBy/" + id;
+            let options = {
+                headers: {
+                  "Authorization": "Bearer " + localStorage.getItem("token")
+                }
+              };
+            //console.log(url);
+            fetch(url, options).then(resp=>resp.json()).then(result => setClassRecord(result));
     }, []);
     
     return (
         <Layout className="layout">
             <Content className="site-card-wrapper m-3">
+            <Breadcrumb style={{margin: '16px 0',}}>
+                <Breadcrumb.Item>Trang chủ</Breadcrumb.Item>
+                <Breadcrumb.Item>Lớp</Breadcrumb.Item>
+            </Breadcrumb>
                 <div>
                     <Row>
                         <Col span={12}>

@@ -5,6 +5,7 @@ import Search from 'components/Search';
 import Tao from "./Create";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { BASE_URL } from "config";
+import Dashboard from "pages/dashboard";
 
 import {
     Link,
@@ -19,27 +20,8 @@ function  logOut() {
     window.location.href = '/';
 }
 
-
-
 export default function HeaderPage() {
-
-    const UserView = async function(e){
-        const [userRecord, setUserRecord] = useState({});
-        useEffect(
-            function(){
-                let url = BASE_URL + "/api/user";
-                console.log(url);
-                let options = {
-                    headers: {
-                        "Authorization": "Bearer " + localStorage.getItem("token")
-                    }
-                };
-                fetch(url, options).then(resp=>resp.json()).then(result => setUserRecord(result));
-            }, []);
-        
-        console.log(userRecord);
-    }
-
+    const user = JSON.parse(localStorage.getItem("user"));
     return (
             <div className="navbar navbar-expand-lg navbar-dark d-flex">
                 <div className="navbar-nav collapse navbar-collapse d-flex justify-content-between">
@@ -66,7 +48,7 @@ export default function HeaderPage() {
                         </a>
                         <div className="dropdown-menu dropdown-menu-end me-2">
                             <div className="more-info" style={{fontSize: "13px"}}>
-                                <p className="ms-2">Le Ba Duc Anh</p>
+                                <p className="ms-2">{user.fullname}</p>
                             </div>
                             <div className="dropdown-divider"></div>
                             <Link to="/edit-info"><p className="dropdown-item">

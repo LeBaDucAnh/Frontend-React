@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {Layout, Menu, Button, Dropdown, Modal, Select } from 'antd';
+import {Layout, Breadcrumb, Menu, Button, Dropdown, Modal, Select } from 'antd';
 import HeaderPage from "components/Header";
 import {Card, Col, Row, Space } from 'antd';
 import "./css/main.css";
@@ -56,13 +56,17 @@ export default function Folder(){
     const [folder, setFolder] = useState({});
 
     useEffect(function(){
-      let url = BASE_URL + '/api/get-folder-by/'+id;
+      let url = BASE_URL + '/api/getFolderBy/'+id;
       fetch(url).then(resp=>resp.json()).then(result => setFolder(result));
     }, [])
 
     return (
         <Layout className="layout">
             <Content className="site-card-wrapper m-3">
+            <Breadcrumb style={{margin: '16px 0',}}>
+              <Breadcrumb.Item>Trang chủ</Breadcrumb.Item>
+              <Breadcrumb.Item>Thư mục</Breadcrumb.Item>
+            </Breadcrumb>
                 <Row>
                     <Col span={12}>
                         <div className="m-2"><h3><FolderFilled/> {folder.foldername}</h3></div>
