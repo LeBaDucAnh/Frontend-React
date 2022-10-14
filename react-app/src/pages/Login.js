@@ -37,13 +37,9 @@ export default function Login(){
         }
         else {
             let result = await resp.json();
-            cookie.set('access_token', 'content of cookie'); 
-            cookie = cookies.get('access_token'); 
-            console.log(cookie)
             localStorage.setItem('token', result.jwt);
             localStorage.setItem('user', JSON.stringify(result.data))
             localStorage.setItem("userid", result.data.id)
-            setCookies("jwt", result.jwt, {path: "/"});
             // console.log(token);
             alert("Dang nhap thanh cong");
             console.log(url);
