@@ -5,7 +5,8 @@ export const Action = {
   const initialState = {
     folderList: [],
     classList: [],
-
+    courseList: [],
+    flashCardList: [],
   }
   
   const reducer = (state=initialState, action) => {

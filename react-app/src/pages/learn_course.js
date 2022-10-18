@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import HeaderPage from "components/Header";
 import ReactCardFlip from "react-card-flip";
 import "./css/course.css";
@@ -10,13 +10,34 @@ import { UserOutlined, SnippetsFilled, EditOutlined } from '@ant-design/icons';
 import AddToClassFolder from "components/AddToClass";
 import DeleteCourse from "components/DeleteCourse";
 import { Link } from "react-router-dom";
-
+import { useParams } from "react-router-dom";
+import { BASE_URL } from "config";
+import { useSliceSelector } from "utils/reduxHelper";
 
 const { Header, Content, Footer } = Layout;
 
+
+
+
+function getFlashCard(store){    
+    let url1 = BASE_URL + "/api/flashCardAll/" + localStorage.getItem("courseid");
+    console.log(url1);
+    let options = {
+        headers: {
+        "Authorization": "Bearer " + localStorage.getItem("token")
+        }
+    };
+    console.log(url1);
+    fetch(url1, options).then(resp=>resp.json()).then(result =>
+        store.setState({
+            flashCardList: result,
+        }));
+    }
+
+
 function Course() {
     const [flip, setFlip] = useState(false);
-
+    const user = JSON.parse(localStorage.getItem("user"));
     const properties = {
         duration: 5000,
         transitionDuration: 500,
@@ -29,7 +50,25 @@ function Course() {
         }
     };
 
+    const {id} = useParams();
+    const store = useSliceSelector('library');
+    const [flashCardList] = useSliceSelector('library', ['flashCardList']);
+    const [courseRecord, setCourseRecord] = useState({});
+
+    useEffect(
+        function (){
+            let url = BASE_URL + "/api/getCourseBy/" + id;
+            localStorage.setItem("courseid", id);
+            let options = {
+                headers: {
+                  "Authorization": "Bearer " + localStorage.getItem("token")
+                }
+              };
+              fetch(url, options).then(resp=>resp.json()).then(result => setCourseRecord(result));
+    },[]);
+
     return (
+        
         <Layout>
             <Content>
             <Breadcrumb style={{margin: '16px 10px',}}>
@@ -39,7 +78,7 @@ function Course() {
                 <div className="mt-3">
                     <Row>
                         <Col span={12} className="ps-5">
-                            <h3>Học lập trình Python</h3>
+                            <h3>{courseRecord.coursename}</h3>
                         </Col>
                         <Col span={12} className="pe-5" style={{ textAlign: "right" }}>
                             <Button type="primary" size="large" icon={<SnippetsFilled />}>Kiểm tra</Button>
@@ -48,16 +87,17 @@ function Course() {
 
                 </div>
                 <Slide {...properties}>
-                    <div className="each-slide">
+                    {/* {flashCardList.map(fcard => ( */}
+                    <div className="each-slide" key="">
                         <ReactCardFlip isFlipped={flip} flipDirection="vertical">
                             <div className="card-course" onClick={() => setFlip(!flip)}>
-                                OOP
+                                {/* {fcard.keyword} */}
                                 <br />
                                 <br />
 
                             </div>
                             <div className="card-back" onClick={() => setFlip(!flip)}>
-                                Hướng đối tượng
+                                {/* {fcard.defindName} */}
                                 <br />
                                 <br />
 
@@ -65,6 +105,7 @@ function Course() {
 
                         </ReactCardFlip>
                     </div>
+                    {/* ))}  */}
                     <div className="each-slide">
                         <ReactCardFlip isFlipped={flip} flipDirection="vertical">
                             <div className="card-course" onClick={() => setFlip(!flip)}>
@@ -104,8 +145,8 @@ function Course() {
                 <div className="info-course ms-3 mt-5">
                     <Row>
                         <Col span={12}>
-                            <Avatar icon={<UserOutlined />} style={{ backgroundColor: 'gray' }} />
-                            <span className="ms-2"><b>lebaducanh</b></span>
+                            
+                            <h5><Avatar icon={<UserOutlined />} style={{ backgroundColor: 'gray' }} /> <b>{user.fullname}</b></h5>
                         </Col>
                         <Col span={12} className="pe-2" style={{ textAlign: "right" }}>
                             <AddToClassFolder />
@@ -114,7 +155,7 @@ function Course() {
                         </Col>
                     </Row>
                     <div className="info ms-2">
-                        <p>Học lập trình với python</p>
+                        <p>{courseRecord.description}</p>
                         <p>đã thêm vào CNTT3-K14 | Lập trình | CNTT3-K14</p>
                     </div>
                 </div>

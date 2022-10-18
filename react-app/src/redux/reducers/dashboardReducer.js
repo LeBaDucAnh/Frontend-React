@@ -6,6 +6,7 @@ export const Action = {
     classList: [],
     total: 0,
     classListAll: [],
+    classRecord: [],
   }
   
   const reducer = (state=initialState, action) => {

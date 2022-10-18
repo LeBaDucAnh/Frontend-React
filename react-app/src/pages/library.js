@@ -42,15 +42,31 @@ function getFolderList(store) {
     )
 }
 
-
+function getCourseList(store) {
+    let url = BASE_URL + '/api/getCourseByIDCreator/'+localStorage.getItem("userid");
+    console.log(url);
+    let options = {
+        headers: {
+          "Authorization": "Bearer " + localStorage.getItem("token")
+        }
+      };
+    fetch(url, options).then(resp => resp.json()).then(
+        result =>
+            store.setState({
+                courseList: result,
+            })
+    )
+}
 
 export default function Show() {
+    const user = JSON.parse(localStorage.getItem("user"));
     const store = useSliceStore('library');
-    const [folderList, classList] = useSliceSelector('library', ['folderList', 'classList']);
+    const [folderList, classList, courseList] = useSliceSelector('library', ['folderList', 'classList', 'courseList']);
 
     useEffect(function () {
         getClassList(store);
         getFolderList(store);
+        getCourseList(store);
     }, []);
 
     return (
@@ -69,7 +85,8 @@ export default function Show() {
                                     <Card title="" size="small" key={lop.id}>
                                         <p>4 học phần | 2 thành viên | {lop.schoolname}</p>
                                         <p><h4><UsergroupAddOutlined />{lop.classname}</h4></p>
-                                    </Card></Link>
+                                    </Card>
+                                </Link>
                             )}
                         </Space>
                     </TabPane>
@@ -99,12 +116,15 @@ export default function Show() {
                             style={{
                                 display: 'flex',
                             }}>
-                            <Card title="" size="small">
-                                <Link to="/learn-course">
-                                    <p>6 thuật ngữ | Đức Anh Lê Bá</p>
-                                    <p><h4> Học lập trình Python</h4></p>
-                                </Link>
-                            </Card>
+                            {courseList.map(course =>
+                            <Link to={"/learn-course/" + course.id}>
+                                <Card title="" size="small" key={course.id}>
+                                    <p>{course.id}</p>
+                                    <p>6 thuật ngữ | {user.fullname}</p>
+                                    <p><h4> {course.coursename} </h4></p>
+                                </Card>
+                            </Link>
+                            )}
                             <Card title="" size="small">
                                 <p>6 thuật ngữ | Đức Anh Lê Bá</p>
                                 <p><h4> Học lập trình Python</h4></p>

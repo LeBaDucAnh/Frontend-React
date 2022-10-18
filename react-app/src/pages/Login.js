@@ -6,7 +6,6 @@ import {Col, Row} from "antd";
 import {Button, Checkbox, Input, Form } from 'antd';
 import React, { useState } from "react";
 import { BASE_URL } from "config";
-import { connect } from "react-redux";
 
 
 const {TabPane} = Tabs;
@@ -20,7 +19,6 @@ export default function Login(){
 
     const LogIn = async function(e) {
         e.preventDefault();
-    //const[loginRecord, setLoginRecord] = useState({});
         let data = {email: email, password: password};
         data = JSON.stringify(data);
         let options = {
@@ -40,11 +38,9 @@ export default function Login(){
             localStorage.setItem('token', result.jwt);
             localStorage.setItem('user', JSON.stringify(result.data))
             localStorage.setItem("userid", result.data.id)
-            // console.log(token);
             alert("Dang nhap thanh cong");
             console.log(url);
             console.log(result);
-            //console.log(token);
             window.location.href = '/';
         }
     }
@@ -67,6 +63,7 @@ export default function Login(){
         else {
             let result = await resp.json();
             localStorage.setItem('token', result.access);
+            alert("Đăng kí thành công! Hãy đăng nhập!");
             //window.location.href = '/';
         }
     }
