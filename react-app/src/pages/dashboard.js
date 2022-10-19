@@ -27,7 +27,7 @@ function getClassListByCreator(store){
         });
 }
 function getClassList(store){
-    let url = BASE_URL + '/api/classAll/';
+    let url = BASE_URL + '/api/classAll';
     console.log(url);
     let options = {
          headers: {
@@ -42,21 +42,21 @@ function getClassList(store){
         });
 }
 
-function getClassId(store, pk){
+// function getClassId(store, pk){
     
-    let url = BASE_URL + "/api/getClassBy/" + pk;
-    let options = {
-        headers: {
-          "Authorization": "Bearer " + localStorage.getItem("token")
-        }
-      };
-    //console.log(url);
-    fetch(url, options).then(resp=>resp.json()).then(result=>{
-        store.setState({
-            classRecord: result,
-        })
-    });
-}
+//     let url = BASE_URL + "/api/getClassBy/" + pk;
+//     let options = {
+//         headers: {
+//           "Authorization": "Bearer " + localStorage.getItem("token")
+//         }
+//       };
+//     //console.log(url);
+//     fetch(url, options).then(resp=>resp.json()).then(result=>{
+//         store.setState({
+//             classRecord: result,
+//         })
+//     });
+// }
 
 
 const { Header, Content, Footer } = Layout;
@@ -64,7 +64,7 @@ export default function Dashboard(){
     const store = useSliceStore('dashboard');
     const [classList, total] = useSliceSelector('dashboard', ['classList', 'total']);
     const [classListAll] = useSliceSelector('dashboard',['classListAll']);
-    const [classRecord] = useSliceSelector('dashboard',['classRecord']);
+    //const [classRecord] = useSliceSelector('dashboard',['classRecord']);
     
     useEffect(function(){
       getClassListByCreator(store);
@@ -87,8 +87,8 @@ export default function Dashboard(){
                         <Card title={lop.classname} bordered={false}> 
 
                             <div><HomeOutlined /> <span>{lop.schoolname}</span></div>
-                            <div><FileTextOutlined /> <span>{classRecord.numberOfCourse} học phần</span></div>
-                            <div><UserOutlined /> <span>{classRecord.numberOfMember} thành viên</span></div>
+                            <div><FileTextOutlined /> <span>3 học phần</span></div>
+                            <div><UserOutlined /> <span>4 thành viên</span></div>
                         </Card>
                      </Link>
                 </Col>
@@ -98,12 +98,12 @@ export default function Dashboard(){
             <br/>
             <Row gutter={16} className="mb-3">
             {classListAll.map(lop =>
-                <Col span={8} key={lop.id} className="mb-3" onClick={() => getClassId(lop.id)}>
+                <Col span={8} key={lop.id} className="mb-3" >
                     <Link to={"/class/"+lop.id} >
                         <Card title={lop.classname} bordered={false}> 
                             <div><HomeOutlined /> <span>{lop.schoolname}</span></div>
-                            <div><FileTextOutlined /> <span>{classRecord.numberOfCourse} học phần</span></div>
-                            <div><UserOutlined /> <span>{classRecord.numberOfMember} thành viên</span></div>
+                            <div><FileTextOutlined /> <span>3 học phần</span></div>
+                            <div><UserOutlined /> <span>4 thành viên</span></div>
                         </Card>
                      </Link>
                 </Col>

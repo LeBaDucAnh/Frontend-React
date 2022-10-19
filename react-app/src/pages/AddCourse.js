@@ -13,24 +13,50 @@ const { Header, Content, Footer } = Layout;
 export default function AddCourse() {
     const [namecourse, setCoursename] = useState('');
     const [description, setDescription] = useState('');
-    // const [, setClassschool] = useState('');
-    // const [isChecked, setChecked] = useState(0);
+    const [display, setDisplay] = useState(1);
+    const [edit, setEdit] = useState(1);
+    const [keyword, setKeyword] = useState('');
+    const [define, setDefine] = useState('');
+    const userid = localStorage.getItem('userid');
+    const handleChangeDisplay = e => {
+        setDisplay(e);
+        console.log(e);
+    }
+    const handleChangeEdit = e => {
+        setEdit(e);
+        console.log(e);
+    }
 
     const createCourse = async function (e) {
-        let data = { coursename: namecourse, description: description }
+        e.preventDefault();
+        let data = { coursename: namecourse, description: description, userID: userid, allowDisplay: display, allowEdit: edit };
         data = JSON.stringify(data);
         let options = {
             method: "POST",
             body: data,
             headers: { "Content-type": "application/json" }
         };
-        let url = BASE_URL + "/api/createCourse/";
+        let url = BASE_URL + "/api/createCourse";
         let resp = await fetch(url, options);
+
+        console.log(display);
         if (resp.status != 200) {
             alert('Không thể tạo học phần');
         }
         else {
-            alert("Tạo mới thành công!");
+            let result = await resp.json();
+            localStorage.setItem('course', JSON.stringify(result));
+            localStorage.setItem('courseid', result.id);
+            let courseid = localStorage.getItem('courseid');
+            let data2 = { keyword: keyword, defindName: define, courseID: courseid };
+            data2 = JSON.stringify(data2);
+            let options2 = {
+                method: "POST",
+                body: data2,
+                headers: { "Content-type": "application/json" }
+            }
+            let respon = await (fetch(BASE_URL + "/api/createFlashcard", options2))
+            alert("Tạo học phần mới thành công!");
             window.location.href = "/";
         }
 
@@ -60,36 +86,37 @@ export default function AddCourse() {
                                 <Input type="text" className="mt-2 mb-2" name="descourse" placeholder="Thêm mô tả..." value={description} onChange={(e) => setDescription(e.target.value)} />
                             </Form.Item>
                         </Col>
-                        <Col span={12} style={{paddingLeft: "200px"}}>
+                        <Col span={12} style={{ paddingLeft: "200px" }}>
                             <div>
                                 <p><b>Hiển thị học phần</b></p>
-                                <Select defaultValue="default"
-                                        style={{
-                                            width: 120,
-                                        }}
-                                        placement="bottomLeft"
-                                        >
-                                    <Option value = "default">
+                                <Select defaultValue="1"
+                                    style={{
+                                        width: 120,
+                                    }}
+                                    placement="bottomLeft"
+                                    onChange={handleChangeDisplay}>
+                                    <Option value="1">
                                         Mọi người
                                     </Option>
-                                    <Option value = "privacy">
+                                    <Option value="0">
                                         Chỉ tôi
                                     </Option>
                                 </Select>
+
                             </div>
-                            <br/>
+                            <br />
                             <div>
                                 <p><b>Chỉnh sửa học phần</b></p>
-                                <Select defaultValue="default"
-                                        style={{
-                                            width: 180,
-                                        }}
-                                        placement="bottomLeft"
-                                        >
-                                    <Option value = "default">
+                                <Select defaultValue="1"
+                                    style={{
+                                        width: 180,
+                                    }}
+                                    placement="bottomLeft"
+                                    onChange={handleChangeEdit}>
+                                    <Option value="1">
                                         Mọi người trong lớp
                                     </Option>
-                                    <Option value = "privacy">
+                                    <Option value="0">
                                         Chỉ tôi
                                     </Option>
                                 </Select>
@@ -98,66 +125,15 @@ export default function AddCourse() {
                     </Row>
 
                     <Space
-                        style={{
-                            display: 'flex',
-                            marginBottom: 8,
-                        }}
-                        align="baseline"
-
-                    >
+                        style={{display: 'flex',marginBottom: 8,}} align="baseline">
                         <Form.Item
-                            rules={[
-                                {
-                                    required: true,
-                                },
-                            ]}
-                        >
-                            <Input style={{ width: "500px" }} placeholder="Thuật ngữ" />
-
+                            rules={[{ required: true, },]}>
+                            <Input style={{ width: "500px" }} placeholder="Thuật ngữ" value={keyword} onChange={(e) => setKeyword(e.target.value)} />
                         </Form.Item>
                         <Form.Item
-
-                            rules={[
-                                {
-                                    required: true,
-                                },
-                            ]}
-                        >
-                            <Input style={{ width: "500px" }} placeholder="Định nghĩa" />
-
+                            rules={[{required: true,},]}>
+                            <Input style={{ width: "500px" }} placeholder="Định nghĩa" value={define} onChange={(e) => setDefine(e.target.value)} />
                         </Form.Item>
-
-                    </Space>
-                    <Space
-                        style={{
-                            display: 'flex',
-                            marginBottom: 8,
-                        }}
-                        align="baseline"
-
-                    >
-                        <Form.Item
-                            rules={[
-                                {
-                                    required: true,
-                                },
-                            ]}
-                        >
-                            <Input style={{ width: "500px" }} placeholder="Thuật ngữ" />
-
-                        </Form.Item>
-                        <Form.Item
-
-                            rules={[
-                                {
-                                    required: true,
-                                },
-                            ]}
-                        >
-                            <Input style={{ width: "500px" }} placeholder="Định nghĩa" />
-
-                        </Form.Item>
-
                     </Space>
                     <Row>
                         <Form name="dynamic_form_nest_item" autoComplete="off">
@@ -178,33 +154,18 @@ export default function AddCourse() {
                                                 style={{
                                                     display: 'flex',
                                                     marginBottom: 8,
-                                                }}
-                                                align="baseline"
-
-                                            >
+                                                }} align="baseline">
                                                 <Form.Item
                                                     {...restField}
                                                     name={[name, 'first']}
-                                                    rules={[
-                                                        {
-                                                            required: true,
-                                                        },
-                                                    ]}
-                                                >
-                                                    <Input style={{ width: "500px" }} placeholder="Thuật ngữ" />
-
+                                                    rules={[{required: true,},]}>
+                                                    <Input style={{ width: "500px" }} placeholder="Thuật ngữ" value={keyword} onChange={(e) => setKeyword(e.target.value)} />
                                                 </Form.Item>
                                                 <Form.Item
                                                     {...restField}
                                                     name={[name, 'last']}
-                                                    rules={[
-                                                        {
-                                                            required: true,
-                                                        },
-                                                    ]}
-                                                >
-                                                    <Input style={{ width: "500px" }} placeholder="Định nghĩa" />
-
+                                                    rules={[{required: true,},]}>
+                                                    <Input style={{ width: "500px" }} placeholder="Định nghĩa" value={define} onChange={(e) => setDefine(e.target.value)} />
                                                 </Form.Item>
                                                 <MinusCircleOutlined onClick={() => remove(name)} />
                                             </Space>
