@@ -4,6 +4,7 @@ import HeaderPage from "components/Header";
 import "./css/main.css";
 import {SettingFilled} from '@ant-design/icons'
 import { BASE_URL } from "config";
+import CreateFlashCard from "components/AddFlashCard";
 
 const { Header, Content, Footer } = Layout;
 export default function EditInfo(){
@@ -41,6 +42,7 @@ export default function EditInfo(){
                         
                     </Col>
                 </Row>
+                <CreateFlashCard/>
             </Content>
         </Layout>
     );

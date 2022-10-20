@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import HeaderPage from "components/Header";
 import { Breadcrumb, Form, Layout, Input, Space, Button, message, Upload, Select } from 'antd';
 import '../pages/css/main.css';
 import { Row, Col } from 'antd';
@@ -48,6 +47,7 @@ export default function AddCourse() {
             localStorage.setItem('course', JSON.stringify(result));
             localStorage.setItem('courseid', result.id);
             let courseid = localStorage.getItem('courseid');
+
             let data2 = { keyword: keyword, defindName: define, courseID: courseid };
             data2 = JSON.stringify(data2);
             let options2 = {
@@ -71,7 +71,6 @@ export default function AddCourse() {
                 <Breadcrumb style={{ margin: '16px 0', }}>
                     <Breadcrumb.Item>Trang chủ</Breadcrumb.Item>
                     <Breadcrumb.Item>Học phần</Breadcrumb.Item>
-                    {/* <Breadcrumb.Item>App</Breadcrumb.Item> */}
                 </Breadcrumb>
                 <div className="m-2"><span><h4>Tạo học phần mới </h4></span></div>
                 <Form>
@@ -125,13 +124,13 @@ export default function AddCourse() {
                     </Row>
 
                     <Space
-                        style={{display: 'flex',marginBottom: 8,}} align="baseline">
+                        style={{ display: 'flex', marginBottom: 8, }} align="baseline">
                         <Form.Item
                             rules={[{ required: true, },]}>
                             <Input style={{ width: "500px" }} placeholder="Thuật ngữ" value={keyword} onChange={(e) => setKeyword(e.target.value)} />
                         </Form.Item>
                         <Form.Item
-                            rules={[{required: true,},]}>
+                            rules={[{ required: true, },]}>
                             <Input style={{ width: "500px" }} placeholder="Định nghĩa" value={define} onChange={(e) => setDefine(e.target.value)} />
                         </Form.Item>
                     </Space>
@@ -158,13 +157,13 @@ export default function AddCourse() {
                                                 <Form.Item
                                                     {...restField}
                                                     name={[name, 'first']}
-                                                    rules={[{required: true,},]}>
+                                                    rules={[{ required: true, },]}>
                                                     <Input style={{ width: "500px" }} placeholder="Thuật ngữ" value={keyword} onChange={(e) => setKeyword(e.target.value)} />
                                                 </Form.Item>
                                                 <Form.Item
                                                     {...restField}
                                                     name={[name, 'last']}
-                                                    rules={[{required: true,},]}>
+                                                    rules={[{ required: true, },]}>
                                                     <Input style={{ width: "500px" }} placeholder="Định nghĩa" value={define} onChange={(e) => setDefine(e.target.value)} />
                                                 </Form.Item>
                                                 <MinusCircleOutlined onClick={() => remove(name)} />
@@ -178,13 +177,14 @@ export default function AddCourse() {
                                     </>
                                 )}
                             </Form.List>
-                            <Form.Item>
-                                <Button type="primary" key="submit" onClick={createCourse}>
-                                    Tạo
-                                </Button>
-                            </Form.Item>
+
                         </Form>
                     </Row>
+                    <Form.Item>
+                        <Button type="primary" key="submit" onClick={createCourse}>
+                            Tạo
+                        </Button>
+                    </Form.Item>
                 </Form>
             </Content>
         </Layout>
