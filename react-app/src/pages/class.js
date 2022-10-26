@@ -63,6 +63,64 @@ const menu1 = (
     />
 );
 
+
+
+function GetClassByID(store, id){
+        let url = BASE_URL + "/api/getClassBy/" + id;
+        console.log(url);
+        //localStorage.setItem("id_class", id);
+        let options = {
+            headers: {
+              "Authorization": "Bearer " + localStorage.getItem("token")
+            }
+          };
+        //console.log(url);
+        fetch(url, options).then(resp=>resp.json()).then(
+            result => {
+                store.setState({
+                    classRecord: result
+                })
+            });
+}
+
+
+
+
+function getCourseByClass(store){
+
+    let url = BASE_URL + "/api/getAllCourseInClass/"+localStorage.getItem("id_class");
+    console.log(url);
+    let options = {
+            headers: {
+              "Authorization": "Bearer " + localStorage.getItem("token")
+            }
+          };
+        //console.log(url);
+        fetch(url, options).then(resp=>resp.json()).then(
+            result => {
+                store.setState({
+                    courseRecord: result
+                })
+        });
+}
+
+function getNameCourseById(store, id){
+    let url = BASE_URL + "/getCourseBy/"+id;
+    console.log(url);
+    let options = {
+            headers: {
+              "Authorization": "Bearer " + localStorage.getItem("token")
+            }
+          };
+        //console.log(url);
+        fetch(url, options).then(resp=>resp.json()).then(
+            result => {
+                store.setState({
+                    nameCourse: result
+                })
+        });
+}
+
 export default function ShowClass() {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -77,21 +135,20 @@ export default function ShowClass() {
         setIsModalOpen(false);
     };
     
+    const store = useSliceStore('class');
+    const [nameCourse] = useSliceSelector('class', ['nameCourse']);
+    const [classRecord] = useSliceSelector('class', ['classRecord']);
+    const [courseRecord] = useSliceSelector('class', ['courseRecord']);
+    const [folderRecord] = useSliceSelector('class', ['folderRecord']);
     const {id} = useParams();
-    const [classRecord, setClassRecord] = useState({});
-    useEffect(
-        function(){
-            let url = BASE_URL + "/api/getClassBy/" + id;
-            let options = {
-                headers: {
-                  "Authorization": "Bearer " + localStorage.getItem("token")
-                }
-              };
-            //console.log(url);
-            fetch(url, options).then(resp=>resp.json()).then(result => setClassRecord(result));
+
+    useEffect(function(){
+        GetClassByID(store, id);
+        getCourseByClass(store);
     }, []);
     
     return (
+        
         <Layout className="layout">
             <Content className="site-card-wrapper m-3">
             <Breadcrumb style={{margin: '16px 0',}}>
@@ -159,10 +216,14 @@ export default function ShowClass() {
                                     style={{
                                         display: 'flex',
                                     }}>
-                                    <Card title="" size="small">
-                                        <p>4 thuật ngữ | Admin </p>
-                                        <p><h4>Python Basic</h4></p>
-                                    </Card>
+                                    {courseRecord.map(course_class =>
+                                    
+                                        <Card title="" size="small" key={course_class.id}>
+                                            <Link to={"/learn-course/"+course_class.courseID}><p>4 thuật ngữ | Admin </p>
+                                            <p><h4>{course_class.coursename}</h4></p>
+                                        </Link></Card>
+                                    
+                                    )}
 
                                 </Space>
                             </TabPane>
@@ -211,7 +272,7 @@ export default function ShowClass() {
                     </Col>
                     <Col span={8} className="ps-5 pt-3">
                         <h5>Chi tiết lớp học</h5>
-                       <p><BankFilled /> {classRecord?.data?.schoolname}</p>
+                        <p><BankFilled /> {classRecord?.data?.schoolname}</p>
                         <p><BookFilled />Học phần {classRecord.numberOfCourse}  </p>
                         <p><UserOutlined />Thành viên {classRecord.numberOfMember} </p>
                         <p><InfoCircleFilled /> {classRecord?.data?.description}</p>

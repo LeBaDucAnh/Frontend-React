@@ -18,11 +18,6 @@ import EditCourse from 'pages/EditCourse';
 import EditInfo from 'pages/editInfo';
 import HeaderPage from 'components/Header';
 
-function LogOut() {
-  localStorage.removeItem("token");
-  window.location.href = "/";
-}
-
 
 function App() {
   const token  = localStorage.getItem('token');

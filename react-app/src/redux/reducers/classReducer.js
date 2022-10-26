@@ -3,9 +3,12 @@ export const Action = {
   }
   
   const initialState = {
-    lop: {},
-   numberOfCourse: 0,
-   numberOfMember: 0
+    courseRecord: [],
+    folderRecord: [],
+    classRecord: {},
+    nameCourse: {},
+    // numberOfCourse: 0,
+    // numberOfMember: 0
   }
   
   const reducer = (state=initialState, action) => {
