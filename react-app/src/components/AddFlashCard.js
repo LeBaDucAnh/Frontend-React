@@ -26,20 +26,20 @@ function CreateFlashCard (){
     const submit = async function (e) {
         e.preventDefault();
         console.log(inputFields);
-        localStorage.setItem('card', JSON.stringify(inputFields));
-        console.log(localStorage.getItem('card'));
+        // localStorage.setItem('card', JSON.stringify(inputFields));
+        // console.log(localStorage.getItem('card'));
         
         // console.log({fcard.keyword});
         // for (let x in inputFields){
             
         // }
         
-        let data = [...inputFields];
-        for(var i = 0; i<data.length; i++){
-            console.log("card"+i);
-            console.log(data[i]);
-            localStorage.setItem("card"+i, JSON.stringify(data[i]));
-        }
+        //let data = [...inputFields];
+        // for(var i = 0; i<data.length; i++){
+        //     console.log("card"+i);
+        //     console.log(data[i]);
+        //     localStorage.setItem("card"+i, JSON.stringify(data[i]));
+        // }
         // for(var i in data){
         //     console.log(data[i]);
             
@@ -54,7 +54,7 @@ function CreateFlashCard (){
         data.splice(index, 1);
         setInputFields(data);
     }
-    const fcard = JSON.parse(localStorage.getItem("card0"));
+    //const fcard = JSON.parse(localStorage.getItem("card0"));
     return (
         <>
         {/* <Space style={{ display: 'flex', marginBottom: 8, }} align="baseline">
@@ -99,7 +99,7 @@ function CreateFlashCard (){
                         
                     </Row>
                     <Button type="primary"  onClick={submit}>Submit</Button>
-                    <p>{fcard.keyword}</p>                  
+                    {/* <p>{fcard.keyword}</p>                   */}
                     </>
     )
 }

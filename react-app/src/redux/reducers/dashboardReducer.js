@@ -6,7 +6,12 @@ export const Action = {
     classList: [],
     total: 0,
     classListAll: [],
+    searchParams: {
+      keyword: '',
+    }
   }
+
+
   
   const reducer = (state=initialState, action) => {
     if(action.type === 'dashboard/' + Action.SET_STATE) {
