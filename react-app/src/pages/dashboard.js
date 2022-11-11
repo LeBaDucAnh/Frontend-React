@@ -64,7 +64,7 @@ export default function Dashboard(){
     const store = useSliceStore('dashboard');
     const [classList, total] = useSliceSelector('dashboard', ['classList', 'total']);
     const [classListAll] = useSliceSelector('dashboard',['classListAll']);
-    //const [classRecord] = useSliceSelector('dashboard',['classRecord']);
+    const [classListSearch, totalSearch, searchParams] = useSliceSelector('dashboard', ['classListSearch','totalSearch','searchParams']);
     
     useEffect(function(){
       getClassListByCreator(store);
@@ -77,7 +77,25 @@ export default function Dashboard(){
         <Content className="site-card-wrapper m-3">
         <Breadcrumb style={{margin: '16px 0',}}>
             <Breadcrumb.Item>Trang chủ</Breadcrumb.Item>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
         </Breadcrumb>
+
+        {/* <div className="m-2"><span><h4>Lớp cần tìm: </h4></span></div>
+        <div className="infor m-3"><UsergroupAddOutlined /><span>{totalSearch} lớp học được tìm thấy</span></div>
+            <Row gutter={16} className="mb-3" >
+            {classListSearch.map(lop =>
+                <Col span={8} key={lop.id} className="mb-3" >
+                    <Link to={"/class/"+lop.id}>
+                        <Card title={lop.classname} bordered={false}> 
+                            <div><HomeOutlined /> <span>{lop.schoolname}</span></div>
+                            <div><FileTextOutlined /> <span>3 học phần</span></div>
+                            <div><UserOutlined /> <span>4 thành viên</span></div>
+                        </Card>
+                     </Link>
+                </Col>
+            )}
+            </Row> */}
+
             <div className="m-2"><span><h4>Lớp của bạn: </h4></span></div>
             <div className="infor m-3"><UsergroupAddOutlined /><span>{total} lớp học được tạo</span></div>
             <Row gutter={16} className="mb-3" >
@@ -94,10 +112,11 @@ export default function Dashboard(){
                 </Col>
             )}
             </Row>
-            <div className="m-2"><span><h4>Các lớp học khác: </h4></span></div>
+            <div className="m-2"><span><h4>Các lớp học : </h4></span></div>
             <br/>
+            <div className="infor m-3"><UsergroupAddOutlined /><span>{totalSearch} lớp học được tìm thấy</span></div>
             <Row gutter={16} className="mb-3">
-            {classListAll.map(lop =>
+            {classListSearch.map(lop =>
                 <Col span={8} key={lop.id} className="mb-3" >
                     <Link to={"/class/"+lop.id} >
                         <Card title={lop.classname} bordered={false}> 

@@ -57,7 +57,7 @@ export default function AddCourse() {
             }
             let respon = await (fetch(BASE_URL + "/api/createFlashcard", options2))
             alert("Tạo học phần mới thành công!");
-            window.location.href = "/";
+            window.location.href = "/library";
         }
 
 

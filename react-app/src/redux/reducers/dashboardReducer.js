@@ -5,7 +5,9 @@ export const Action = {
   const initialState = {
     classList: [],
     total: 0,
+    totalSearch: 0,
     classListAll: [],
+    classListSearch: [],
     searchParams: {
       keyword: '',
     }

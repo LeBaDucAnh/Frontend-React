@@ -79,11 +79,11 @@ function CreateFlashCard (){
                                                     display: 'flex',
                                                     marginBottom: 8,
                                                 }} align="baseline">
-                                                <Form.Item>
-                                                    <Input style={{ width: "500px" }} name="keyword" placeholder="Thuật ngữ" value={input.keyword} onChange={event => handelFormChange(index, event)} />
+                                                <Form.Item label="Thuật ngữ" rules={[{required: true,message: 'Fill the blank!',},]}>
+                                                    <Input style={{ width: "500px" }} name="keyword" placeholder="Thuật ngữ" value={input.keyword} onChange={event => handelFormChange(index, event)} required />
                                                 </Form.Item>
-                                                <Form.Item>
-                                                    <Input style={{ width: "500px" }} name="defindName" placeholder="Định nghĩa" value={input.defindName} onChange={event => handelFormChange(index, event)} />
+                                                <Form.Item label="Định nghĩa" rules={[{required: true,message: 'Fill the blank!',},]}>
+                                                    <Input style={{ width: "500px" }} name="defindName" placeholder="Định nghĩa" value={input.defindName} onChange={event => handelFormChange(index, event)} required/>
                                                 </Form.Item>
                                                 <MinusCircleOutlined onClick={() => removeFields(index)} />
                                             </Space>

@@ -35,8 +35,8 @@ function getClassListByKeyword(store){
     fetch(url, options).then(resp => resp.json()).then(result => {
         //console.log(result);
         store.setState({
-          classList: result.data,
-          //total: result.total
+          classListSearch: result.data,
+          totalSearch: result.total
         })
       });
 
@@ -45,7 +45,7 @@ function getClassListByKeyword(store){
 
 export default function SearchClass() {
     const store = useSliceStore('dashboard');
-    const [classList, total, searchParams] = useSliceSelector('dashboard', ['classList','total','searchParams']);
+    const [classListSearch, totalSearch, searchParams] = useSliceSelector('dashboard', ['classListSearch','totalSearch','searchParams']);
     useEffect(function(){
         getClassListByKeyword(store);
     }, []);
@@ -58,7 +58,7 @@ export default function SearchClass() {
       };
 
     const searchClass = function(e) {
-        //e.preventDefault();
+        // e.preventDefault();
         getClassListByKeyword(store);
     }
 
@@ -66,21 +66,7 @@ export default function SearchClass() {
         <>
         <Search style ={{width: "400px"}} allowClear size = "large" placeholder="Nhập tên lớp, trường..." onSearch={searchClass} enterButton  value={searchParams.keyword} onChange={e => setSearchParams({keyword: e.target.value})}/>
 
-        {/* <div className="m-2"><span><h4>Lớp của bạn: </h4></span></div>
-        <div className="infor m-3"><UsergroupAddOutlined /><span>{total} lớp học được tạo</span></div>
-            <Row gutter={16} className="mb-3" >
-            {classList.map(lop =>
-                <Col span={8} key={lop.id} className="mb-3" >
-                    <Link to={"/class/"+lop.id}>
-                        <Card title={lop.classname} bordered={false}> 
-                            <div><HomeOutlined /> <span>{lop.schoolname}</span></div>
-                            <div><FileTextOutlined /> <span>3 học phần</span></div>
-                            <div><UserOutlined /> <span>4 thành viên</span></div>
-                        </Card>
-                     </Link>
-                </Col>
-            )}
-            </Row> */}
+        
         </>
     );
 }
