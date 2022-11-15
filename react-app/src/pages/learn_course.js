@@ -10,9 +10,9 @@ import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { BASE_URL } from "config";
 import FlashCard from "components/FlashCard";
-import { useSliceStore, useSliceSelector } from "utils/reduxHelper";
-import ReactCardFlip from "react-card-flip";
-import { Slide } from 'react-slideshow-image';
+// import { useSliceStore, useSliceSelector } from "utils/reduxHelper";
+// import ReactCardFlip from "react-card-flip";
+// import { Slide } from 'react-slideshow-image';
 
 
 const { Header, Content, Footer } = Layout;
