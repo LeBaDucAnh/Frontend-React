@@ -10,20 +10,37 @@ import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { BASE_URL } from "config";
 import FlashCard from "components/FlashCard";
-
+import { useSliceStore, useSliceSelector } from "utils/reduxHelper";
 
 
 const { Content } = Layout;
+
+function getFlashCard(store, id){    
+    //const id = localStorage.getItem("courseid");
+    let url = BASE_URL + "/api/flashCardAll/" + id;
+    console.log(url);
+    let options = {
+        headers: {
+        "Authorization": "Bearer " + localStorage.getItem("token")
+        }
+    };
+    fetch(url, options).then(resp=>resp.json()).then(result =>
+        store.setState({
+            flashCardList: result.data,
+        }));
+    }
 
 function Course() {
     
     const user = JSON.parse(localStorage.getItem("user"));
     const {id} = useParams();
-     const [courseRecord, setCourseRecord] = useState({});
+    const store = useSliceStore('library');
+    const [flashCardList] = useSliceSelector('library', ['flashCardList']);
+    const [courseRecord, setCourseRecord] = useState({});
      useEffect(
         function (){
+            getFlashCard(store, id);
             let url = BASE_URL + "/api/getCourseBy/" + id;
-            localStorage.setItem("courseid", id);
             let options = {
                 headers: {
                   "Authorization": "Bearer " + localStorage.getItem("token")
@@ -51,7 +68,7 @@ function Course() {
                     </Row>
 
                 </div>
-                <FlashCard/>
+                <FlashCard id={id}/>
                 <hr />
                 <div className="info-course ms-3 mt-5">
                     <Row>
@@ -66,7 +83,7 @@ function Course() {
                         </Col>
                     </Row>
                     <div className="info ms-2">
-                        <p>{courseRecord.description}</p>
+                        <p>{courseRecord?.data?.description || ''}</p>
                         <p>đã thêm vào CNTT3-K14 | Lập trình | CNTT3-K14</p>
                     </div>
                 </div>
@@ -75,48 +92,19 @@ function Course() {
                         <h5>Thuật ngữ trong học phần này ({courseRecord.numberFlashcard})</h5>
                     </div>
                     <div className="m-5">
-                        <Card className="list-detail" type="inner" >
+                        {flashCardList.map(card=>
+                        <Card className="list-detail mb-2" type="inner" key={card.id}>
                             <Row>
-                                <Col span={20}>
-                                    <span style={{marginRight: "100px", borderRight: "1px solid gray", paddingRight:"200px"}}>Hướng đối tượng</span>
-                                    <span>OOP</span>
-                                </Col>
-                                <Col span={4} style={{textAlign: "right"}}>
-                                    <Link to="/edit-course"><Button shape="circle" icon={<EditOutlined />} size="large" title="Sửa học phần" /></Link>
-                                </Col>
-                            </Row>
-                            
-                        </Card>
-                        <Card
-                            style={{
-                                marginTop: 16,
-                            }}
-                            className="list-detail" type="inner">
-                            <Row>
-                                <Col span={20}>
-                                    <span style={{marginRight: "100px", borderRight: "1px solid gray", paddingRight:"200px"}}>Hướng đối tượng</span>
-                                    <span>OOP</span>
-                                </Col>
+                                
+                                    <Col  span={10} style={{borderRight: "1px solid", textAlign:"center"}}><span>{card.defindName}</span></Col>
+                                    <Col  span={10} style={{textAlign:"center"}}><span>{card.keyword}</span></Col>
+
                                 <Col span={4} style={{textAlign: "right"}}>
                                     <Link to="/edit-course"><Button shape="circle" icon={<EditOutlined />} size="large" title="Sửa học phần" /></Link>
                                 </Col>
                             </Row>
                         </Card>
-                        <Card
-                            style={{
-                                marginTop: 16,
-                            }}
-                            className="list-detail" type="inner">
-                            <Row>
-                                <Col span={20}>
-                                    <span style={{marginRight: "100px", borderRight: "1px solid gray", paddingRight:"200px"}}>Hướng đối tượng</span>
-                                    <span>OOP</span>
-                                </Col>
-                                <Col span={4} style={{textAlign: "right"}}>
-                                    <Link to="/edit-course"><Button shape="circle" icon={<EditOutlined />} size="large" title="Sửa học phần" /></Link>
-                                </Col>
-                            </Row>
-                        </Card>
+                        )}
                     </div>
                     <div className="mb-5">
                         <Link to="/edit-course"><Button type="primary" className="editxoa">
