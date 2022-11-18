@@ -3,10 +3,6 @@ import { Button, Modal, Space} from 'antd';
 import { DeleteOutlined } from "@ant-design/icons";
 import { BASE_URL } from "config";
 import { useParams } from "react-router-dom";
-import { useSliceSelector, useSliceStore } from "utils/reduxHelper";
-
-
-
 
 const LocalizedModal = () => {
     const [open, setOpen] = useState(false);
@@ -31,7 +27,7 @@ const LocalizedModal = () => {
                   "Authorization": "Bearer " + localStorage.getItem("token")
                 }
               };
-              fetch(url, options).then(resp=>resp.json()).then(result => setCourseRecord(result.result));
+              fetch(url, options).then(resp=>resp.json()).then(result => setCourseRecord(result.data));
             },[]);
 
     const DeleteCourseByID = async function(e){

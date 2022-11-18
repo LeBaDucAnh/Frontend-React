@@ -86,9 +86,9 @@ function GetClassByID(store, id){
 
 
 
-function getCourseByClass(store){
+async function getCourseByClass(store, id){
 
-    let url = BASE_URL + "/api/getAllCourseInClass/"+localStorage.getItem("id_class");
+    let url = BASE_URL + "/api/getAllCourseInClass/"+id;
     console.log(url);
     let options = {
             headers: {
@@ -96,16 +96,51 @@ function getCourseByClass(store){
             }
           };
         //console.log(url);
-        fetch(url, options).then(resp=>resp.json()).then(
+        let res = await(fetch(url, options).then(resp=>resp.json()).then(
             result => {
                 store.setState({
-                    courseRecord: result
+                    courseRecord: result,
+                    
                 })
-        });
+        }));
+
 }
 
-function getNameCourseById(store, id){
-    let url = BASE_URL + "/getCourseBy/"+id;
+function GetMemberInClass(store, id){
+    let url = BASE_URL + "/api/getAllMemberInClass/"+ id;
+    console.log(url);
+      let options = {
+           headers: {
+            "Authorization": "Bearer " + localStorage.getItem("token")
+          }
+        };
+      fetch(url, options).then(resp => resp.json()).then(
+          result=>{
+              store.setState({
+                  memberRecord: result,
+              })
+          });
+  }
+
+
+  function GetFolderInClass(store, id){
+    let url = BASE_URL + "/api/getAllFolderInClass/"+ id;
+    console.log(url);
+      let options = {
+           headers: {
+            "Authorization": "Bearer " + localStorage.getItem("token")
+          }
+        };
+      fetch(url, options).then(resp => resp.json()).then(
+          result=>{
+              store.setState({
+                  folderRecord: result,
+              })
+          });
+  }
+
+function getNameCourseById(store, course_id){
+    let url = BASE_URL + "/api/getCourseBy/"+ course_id;
     console.log(url);
     let options = {
             headers: {
@@ -116,7 +151,9 @@ function getNameCourseById(store, id){
         fetch(url, options).then(resp=>resp.json()).then(
             result => {
                 store.setState({
-                    nameCourse: result
+                    nameCourse: result.data.coursename,
+                    //courseRecord: result.data,
+                    numberCard: result.numberFlashcard,
                 })
         });
 }
@@ -136,15 +173,18 @@ export default function ShowClass() {
     };
     
     const store = useSliceStore('class');
-    const [nameCourse] = useSliceSelector('class', ['nameCourse']);
+    const [memberRecord] = useSliceSelector('class', ['memberRecord']);
     const [classRecord] = useSliceSelector('class', ['classRecord']);
-    const [courseRecord] = useSliceSelector('class', ['courseRecord']);
+    const [courseRecord, course_id] = useSliceSelector('class', ['courseRecord', 'course_id']);
     const [folderRecord] = useSliceSelector('class', ['folderRecord']);
+
     const {id} = useParams();
 
     useEffect(function(){
         GetClassByID(store, id);
-        getCourseByClass(store);
+        getCourseByClass(store, id);
+        GetMemberInClass(store, id);
+        GetFolderInClass(store, id);
     }, []);
     
     return (
@@ -220,7 +260,7 @@ export default function ShowClass() {
                                     
                                         <Card title="" size="small" key={course_class.id}>
                                             <Link to={"/learn-course/"+course_class.courseID}><p>4 thuật ngữ | Admin </p>
-                                            <p><h4>{course_class.coursename}</h4></p>
+                                            <p><h4>python</h4></p>
                                         </Link></Card>
                                     
                                     )}
@@ -234,10 +274,12 @@ export default function ShowClass() {
                                     style={{
                                         display: 'flex',
                                     }}>
-                                    <Card title="" size="small">
+                                    {folderRecord.map(folder => 
+                                    <Card title="" size="small" key={folderRecord.id}>
                                         <p>2 học phần</p>
                                         <p><h4><FolderFilled /> Tháng 9</h4></p>
                                     </Card>
+                                    )}
                                 </Space>
                             </TabPane>
                             <TabPane key="course" tab="Thành viên">
@@ -251,10 +293,11 @@ export default function ShowClass() {
                                         <p>Quản trị viên lớp học</p>
                                         <p><h4> Lê Bá Đức Anh</h4></p>
                                     </Card>
+                                    {memberRecord.map(member => 
                                     <Card title="" size="small">
                                         <p>Thành viên</p>
                                         <p>
-                                            <Row>
+                                            <Row key={member.userID}>
                                                 <Col span={12}>
                                                     <h4> Hoàng Duy Đạt</h4>
                                                 </Col>
@@ -266,6 +309,7 @@ export default function ShowClass() {
                                             </Row>
                                         </p>
                                     </Card>
+                                    )}
                                 </Space>
                             </TabPane>
                         </Tabs>

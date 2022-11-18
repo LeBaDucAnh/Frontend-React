@@ -10,12 +10,10 @@ import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { BASE_URL } from "config";
 import FlashCard from "components/FlashCard";
-// import { useSliceStore, useSliceSelector } from "utils/reduxHelper";
-// import ReactCardFlip from "react-card-flip";
-// import { Slide } from 'react-slideshow-image';
 
 
-const { Header, Content, Footer } = Layout;
+
+const { Content } = Layout;
 
 function Course() {
     
@@ -31,7 +29,7 @@ function Course() {
                   "Authorization": "Bearer " + localStorage.getItem("token")
                 }
               };
-              fetch(url, options).then(resp=>resp.json()).then(result => setCourseRecord(result.result));
+              fetch(url, options).then(resp=>resp.json()).then(result => setCourseRecord(result));
             },[]);
 
     return (
@@ -45,7 +43,7 @@ function Course() {
                 <div className="mt-3">
                     <Row>
                         <Col span={12} className="ps-5">
-                            <h3>{courseRecord.coursename}</h3>
+                            <h3>{courseRecord?.data?.coursename}</h3>
                         </Col>
                         <Col span={12} className="pe-5" style={{ textAlign: "right" }}>
                             <Button type="primary" size="large" icon={<SnippetsFilled />}>Kiểm tra</Button>
@@ -74,7 +72,7 @@ function Course() {
                 </div>
                 <div className="list-card mt-5 mb-5">
                     <div className="mt-2 ms-3">
-                        <h5>Thuật ngữ trong học phần này (3)</h5>
+                        <h5>Thuật ngữ trong học phần này ({courseRecord.numberFlashcard})</h5>
                     </div>
                     <div className="m-5">
                         <Card className="list-detail" type="inner" >

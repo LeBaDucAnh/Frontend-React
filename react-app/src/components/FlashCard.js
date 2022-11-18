@@ -6,7 +6,7 @@ import { useSliceStore, useSliceSelector } from "utils/reduxHelper";
 import "../pages/css/course.css";
 
 
-function getFlashCard(store){    
+async function getFlashCard(store){    
     const id = localStorage.getItem("courseid");
     let url = BASE_URL + "/api/flashCardAll/" + id;
     console.log(url);
@@ -15,7 +15,7 @@ function getFlashCard(store){
         "Authorization": "Bearer " + localStorage.getItem("token")
         }
     };
-    fetch(url, options).then(resp=>resp.json()).then(result =>
+    let resp = fetch(url, options).then(resp=>resp.json()).then(result =>
         store.setState({
             flashCardList: result.data,
         }));

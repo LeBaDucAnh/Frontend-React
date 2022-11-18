@@ -27,7 +27,8 @@ export default function AddCourse() {
     }
 
     const createCourse = async function (e) {
-        e.preventDefault();
+        //e.preventDefault();
+        console.log(e);
         let data = { coursename: namecourse, description: description, userID: userid, allowDisplay: display, allowEdit: edit };
         data = JSON.stringify(data);
         let options = {
@@ -55,11 +56,12 @@ export default function AddCourse() {
                 body: data2,
                 headers: { "Content-type": "application/json" }
             }
-            let respon = await (fetch(BASE_URL + "/api/createFlashcard", options2))
+            let respon = await (fetch(BASE_URL + "/api/createFlashcard", options2));
             alert("Tạo học phần mới thành công!");
             window.location.href = "/library";
-        }
 
+        }
+        
 
     }
 
@@ -73,12 +75,12 @@ export default function AddCourse() {
                     <Breadcrumb.Item>Học phần</Breadcrumb.Item>
                 </Breadcrumb>
                 <div className="m-2"><span><h4>Tạo học phần mới </h4></span></div>
-                <Form>
+                <Form onFinish={createCourse} name="dynamic_form_item" autoComplete="off">
                     <Row>
                         <Col span={12}>
                             <Form.Item>
                                 <label for="namecourse">TIÊU ĐỀ</label>
-                                <Input type="text" className="mt-2 mb-2" name="namecourse" placeholder="Nhập tiêu đề,ví dụ: chuyên đề sinh học,..." value={namecourse} onChange={(e) => setCoursename(e.target.value)} />
+                                <Input type="text" className="mt-2 mb-2" name="namecourse" placeholder="Nhập tiêu đề,ví dụ: chuyên đề sinh học,..." value={namecourse} onChange={(e) => setCoursename(e.target.value)} rules={[{ required: true, whitespace: true, message:"Nhập tên lớp"},]} />
                             </Form.Item>
                             <Form.Item>
                                 <label for="descourse">MÔ TẢ</label>
@@ -123,7 +125,7 @@ export default function AddCourse() {
                         </Col>
                     </Row>
 
-                    <Space
+                    {/* <Space
                         style={{ display: 'flex', marginBottom: 8, }} align="baseline">
                         <Form.Item
                             rules={[{ required: true, },]}>
@@ -133,9 +135,9 @@ export default function AddCourse() {
                             rules={[{ required: true, },]}>
                             <Input style={{ width: "500px" }} placeholder="Định nghĩa" value={define} onChange={(e) => setDefine(e.target.value)} />
                         </Form.Item>
-                    </Space>
+                    </Space> */}
                     <Row>
-                        <Form name="dynamic_form_nest_item" autoComplete="off">
+                        {/* <Form name="dynamic_form_nest_item" autoComplete="off"> */}
                             <Form.List name="Courses" rules={[
                                 {
                                     validator: async (_, names) => {
@@ -145,7 +147,7 @@ export default function AddCourse() {
                                     },
                                 },
                             ]}>
-                                {(fields, { add, remove }) => (
+                                {(fields, { add, remove }, {errors}) => (
                                     <>
                                         {fields.map(({ key, name, ...restField }) => (
                                             <Space
@@ -156,32 +158,35 @@ export default function AddCourse() {
                                                 }} align="baseline">
                                                 <Form.Item
                                                     {...restField}
-                                                    name={[name, 'first']}
-                                                    rules={[{ required: true, },]}>
+                                                    name={[name, 'keyword']}
+                                                    rules={[{ required: true, whitespace: true, message:"Nhập thông tin thẻ"},]}>
                                                     <Input style={{ width: "500px" }} placeholder="Thuật ngữ" value={keyword} onChange={(e) => setKeyword(e.target.value)} />
                                                 </Form.Item>
                                                 <Form.Item
                                                     {...restField}
-                                                    name={[name, 'last']}
-                                                    rules={[{ required: true, },]}>
+                                                    name={[name, 'define']}
+                                                    rules={[{ required: true, whitespace: true, message:"Nhập thông tin định nghĩa"},]}>
                                                     <Input style={{ width: "500px" }} placeholder="Định nghĩa" value={define} onChange={(e) => setDefine(e.target.value)} />
                                                 </Form.Item>
-                                                <MinusCircleOutlined onClick={() => remove(name)} />
+                                                {fields.length > 1 ? (
+                                                    <MinusCircleOutlined onClick={() => remove(name)} />
+                                                ) : null}
                                             </Space>
                                         ))}
                                         <Form.Item>
-                                            <Button type="link" onClick={() => add()} block icon={<PlusOutlined />}>
+                                            <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />} style={{width: "200px", textAlign: "center", marginLeft: "20px"}}>
                                                 Thêm thẻ
                                             </Button>
+                                            <Form.ErrorList errors={errors} />
                                         </Form.Item>
                                     </>
                                 )}
                             </Form.List>
 
-                        </Form>
+                        {/* </Form> */}
                     </Row>
                     <Form.Item>
-                        <Button type="primary" key="submit" onClick={createCourse}>
+                        <Button type="primary" htmlType="submit">
                             Tạo
                         </Button>
                     </Form.Item>

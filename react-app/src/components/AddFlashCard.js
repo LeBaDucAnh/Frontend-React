@@ -26,6 +26,11 @@ function CreateFlashCard (){
     const submit = async function (e) {
         e.preventDefault();
         console.log(inputFields);
+        console.log(inputFields[0].keyword);
+
+        var arrayToString = JSON.stringify(Object.assign({}, inputFields));
+        var stringToJson = JSON.parse(arrayToString);
+        console.log(stringToJson);
         // localStorage.setItem('card', JSON.stringify(inputFields));
         // console.log(localStorage.getItem('card'));
         
