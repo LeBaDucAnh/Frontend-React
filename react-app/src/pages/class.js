@@ -177,7 +177,7 @@ export default function ShowClass() {
     const [classRecord] = useSliceSelector('class', ['classRecord']);
     const [courseRecord, course_id] = useSliceSelector('class', ['courseRecord', 'course_id']);
     const [folderRecord] = useSliceSelector('class', ['folderRecord']);
-
+    const user = JSON.parse(localStorage.getItem("user"));
     const {id} = useParams();
 
     useEffect(function(){
@@ -238,7 +238,7 @@ export default function ShowClass() {
                                     </Row>
                                 </Card>
                             </Modal>
-                            <AddUser />
+                            <AddUser id={id} />
                             <AddFolder />
                             <Dropdown overlay={menu}>
                                 <Button shape="circle" icon={<EllipsisOutlined />} size={"large"} className="me-3" />
@@ -275,7 +275,7 @@ export default function ShowClass() {
                                         display: 'flex',
                                     }}>
                                     {folderRecord.map(folder => 
-                                    <Card title="" size="small" key={folderRecord.id}>
+                                    <Card title="" size="small" key={folder.id}>
                                         <p>2 học phần</p>
                                         <p><h4><FolderFilled /> Tháng 9</h4></p>
                                     </Card>
@@ -291,15 +291,15 @@ export default function ShowClass() {
                                     }}>
                                     <Card title="" size="small">
                                         <p>Quản trị viên lớp học</p>
-                                        <p><h4> Lê Bá Đức Anh</h4></p>
+                                        <p><h4>{user.fullname}</h4></p>
                                     </Card>
                                     {memberRecord.map(member => 
-                                    <Card title="" size="small">
+                                    <Card title="" size="small" key={member.id}>
                                         <p>Thành viên</p>
                                         <p>
-                                            <Row key={member.userID}>
+                                            <Row>
                                                 <Col span={12}>
-                                                    <h4> Hoàng Duy Đạt</h4>
+                                                    <h4>{member.userID}</h4>
                                                 </Col>
                                                 <Col span={12} style={{ textAlign: "right" }}>
                                                     <Dropdown overlay={menu1}>

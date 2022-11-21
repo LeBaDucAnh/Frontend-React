@@ -27,12 +27,13 @@ const LocalizedModal = () => {
       let userid = localStorage.getItem("userid");
       let data = {classname: classname, description: description, schoolname: classschool, allowAddMember: isChecked};
       data = JSON.stringify(data);
+      console.log(data);
       let options = {
         method: "POST",
         body: data,
         headers: {"Content-type":"application/json"}
       };
-      let url = BASE_URL + "/api/createClass/";
+      let url = BASE_URL + "/api/createClass";
       let respone = await(fetch(url, options));
       
       if(respone.status != 200){

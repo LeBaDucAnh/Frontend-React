@@ -49,7 +49,7 @@ const LocalizedModal = () => {
         GetMemberInClass(store, id);
       },[]
     );
-
+      console.log(memberRecord);
     return (
         <>
         <Button onClick={showModal} shape="circle" className="me-3" icon={<UserAddOutlined/>} size={"large"} title="Thêm thành viên"/>
@@ -69,7 +69,7 @@ const LocalizedModal = () => {
             <List
                 size="large"
                 bordered
-                dataSource={memberRecord}
+                dataSource={memberRecord.userID}
                 renderItem={(item) => <List.Item>{item}</List.Item>}
                 />
             </div>

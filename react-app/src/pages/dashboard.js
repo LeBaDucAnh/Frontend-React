@@ -105,8 +105,8 @@ export default function Dashboard(){
                         <Card title={lop.classname} bordered={false}> 
 
                             <div><HomeOutlined /> <span>{lop.schoolname}</span></div>
-                            <div><FileTextOutlined /> <span>3 học phần</span></div>
-                            <div><UserOutlined /> <span>4 thành viên</span></div>
+                            <div><FileTextOutlined /> <span>{lop.courses.length} học phần</span></div>
+                            <div><UserOutlined /> <span>{lop.members.length} thành viên</span></div>
                         </Card>
                      </Link>
                 </Col>
@@ -121,8 +121,8 @@ export default function Dashboard(){
                     <Link to={"/class/"+lop.id} >
                         <Card title={lop.classname} bordered={false}> 
                             <div><HomeOutlined /> <span>{lop.schoolname}</span></div>
-                            <div><FileTextOutlined /> <span>3 học phần</span></div>
-                            <div><UserOutlined /> <span>4 thành viên</span></div>
+                            <div><FileTextOutlined /> <span>{lop.courses.length} học phần</span></div>
+                            <div><UserOutlined /> <span>{lop.members.length} thành viên</span></div>
                         </Card>
                      </Link>
                 </Col>

@@ -26,7 +26,7 @@ const LocalizedModal = () => {
         body: data,
         headers: {"Content-type":"application/json"}
       };
-      let url = BASE_URL + "/api/createFolder/";
+      let url = BASE_URL + "/api/createFolder";
       let resp = await fetch(url, options);
       if(resp.status != 200){
         alert('Không thể tạo thư mục');

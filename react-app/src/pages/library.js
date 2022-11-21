@@ -83,7 +83,7 @@ export default function Show() {
                             {classList.map(lop =>
                                 <Link to={"/class/" + lop.id}>
                                     <Card title="" size="small" key={lop.id}>
-                                        <p>4 học phần | 2 thành viên | {lop.schoolname}</p>
+                                        <p>{lop.courses.length} học phần | {lop.members.length} thành viên | {lop.schoolname}</p>
                                         <p><h4><UsergroupAddOutlined />{lop.classname}</h4></p>
                                     </Card>
                                 </Link>
@@ -100,8 +100,7 @@ export default function Show() {
                             {folderList.map(folder =>
                                 <Link to={"/folder/" + folder.id}>
                                     <Card title="" size="small" key={folder.id}>
-                                        {folder.id}
-                                        <p>2 học phần</p>
+                                        <p>{folder.courses.length} học phần</p>
                                         <p><h4><FolderFilled /> {folder.foldername}</h4></p>
                                     </Card>
                                 </Link>
@@ -125,10 +124,7 @@ export default function Show() {
                                 </Card>
                             </Link>
                             )}
-                            <Card title="" size="small">
-                                <p>6 thuật ngữ | Đức Anh Lê Bá</p>
-                                <p><h4> Học lập trình Python</h4></p>
-                            </Card>
+
                         </Space>
                     </TabPane>
                 </Tabs>

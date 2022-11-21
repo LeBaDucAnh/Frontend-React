@@ -39,7 +39,7 @@ export default function AddCourse() {
         let url = BASE_URL + "/api/createCourse";
         let resp = await fetch(url, options);
 
-        console.log(display);
+        //console.log(display);
         if (resp.status != 200) {
             alert('Không thể tạo học phần');
         }
@@ -51,6 +51,7 @@ export default function AddCourse() {
 
             let data2 = { keyword: keyword, defindName: define, courseID: courseid };
             data2 = JSON.stringify(data2);
+            console.log(data2);
             let options2 = {
                 method: "POST",
                 body: data2,
