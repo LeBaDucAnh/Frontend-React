@@ -3,10 +3,11 @@ import HeaderPage from "components/Header";
 import { Layout, Tabs, Space, Card } from "antd";
 import { TabPane } from "react-bootstrap";
 import "../pages/css/main.css";
-import { UsergroupAddOutlined, FolderFilled } from '@ant-design/icons';
+import { UsergroupAddOutlined, FolderFilled, UserOutlined } from '@ant-design/icons';
 import { Link } from "react-router-dom";
 import { useSliceStore, useSliceSelector } from "utils/reduxHelper";
 import { BASE_URL } from "config";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
 const { Header, Content, Footer } = Layout;
@@ -53,7 +54,8 @@ function getCourseList(store) {
     fetch(url, options).then(resp => resp.json()).then(
         result =>
             store.setState({
-                courseList: result,
+                courseList: result.data,
+                numberFlashcard: result.numberFlashcard,
             })
     )
 }
@@ -61,7 +63,7 @@ function getCourseList(store) {
 export default function Show() {
     const user = JSON.parse(localStorage.getItem("user"));
     const store = useSliceStore('library');
-    const [folderList, classList, courseList] = useSliceSelector('library', ['folderList', 'classList', 'courseList']);
+    const [folderList, classList, courseList, numberFlashcard] = useSliceSelector('library', ['folderList', 'classList', 'courseList', 'numberFlashcard']);
 
     useEffect(function () {
         getClassList(store);
@@ -71,7 +73,7 @@ export default function Show() {
 
     return (
         <Layout className="showClass">
-            <Content className="site-card=wrapper m-3">
+            <Content className="site-card-wrapper m-3"  style={{minHeight: "500px"}}>
                 <Tabs defaultActiveKey="class" className="ms-5">
                     <TabPane key="class" tab="Lớp học">
                         <Space
@@ -118,8 +120,9 @@ export default function Show() {
                             {courseList.map(course =>
                             <Link to={"/learn-course/" + course.id}>
                                 <Card title="" size="small" key={course.id}>
-                                    <p>{course.id}</p>
-                                    <p>6 thuật ngữ | {user.fullname}</p>
+                                    {/* <p>{course.id}</p> */}
+                                    {/* {numberFlashcard} thuật ngữ | */}
+                                    <p> <UserOutlined/> {user.fullname}</p>
                                     <p><h4> {course.coursename} </h4></p>
                                 </Card>
                             </Link>
@@ -130,6 +133,9 @@ export default function Show() {
                 </Tabs>
 
             </Content>
+            <Footer style={{textAlign: 'center',}}>
+                Quizlearn Design ©2022 Created by DucAnh
+            </Footer>
         </Layout>
     )
 }

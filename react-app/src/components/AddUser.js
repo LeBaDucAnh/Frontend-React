@@ -8,21 +8,21 @@ import { useParams } from "react-router-dom";
 const { Search } = Input;
 const onSearch = (value) => console.log(value);
 
-function GetMemberInClass(store, id){
-  let url = BASE_URL + "/api/getAllMemberInClass/"+ id;
-  console.log(url);
-    let options = {
-         headers: {
-          "Authorization": "Bearer " + localStorage.getItem("token")
-        }
-      };
-    fetch(url, options).then(resp => resp.json()).then(
-        result=>{
-            store.setState({
-                memberRecord: result,
-            })
-        });
-}
+// function GetMemberInClass(store, id){
+//   let url = BASE_URL + "/api/getAllMemberInClass/"+ id;
+//   console.log(url);
+//     let options = {
+//          headers: {
+//           "Authorization": "Bearer " + localStorage.getItem("token")
+//         }
+//       };
+//     fetch(url, options).then(resp => resp.json()).then(
+//         result=>{
+//             store.setState({
+//                 memberRecord: result,
+//             })
+//         });
+// }
 
 
 const data = [
@@ -41,15 +41,15 @@ const LocalizedModal = () => {
       setOpen(false);
     };
 
-    const store = useSliceStore('class');
-    const [memberRecord] = useSliceSelector('class', ['memberRecord']);
-    const {id} = useParams();
-    useEffect(
-      function(){
-        GetMemberInClass(store, id);
-      },[]
-    );
-      console.log(memberRecord);
+    // const store = useSliceStore('class');
+    // const [memberRecord] = useSliceSelector('class', ['memberRecord']);
+    // const {id} = useParams();
+    // useEffect(
+    //   function(){
+    //     GetMemberInClass(store, id);
+    //   },[]
+    // );
+    //console.log(memberRecord);
     return (
         <>
         <Button onClick={showModal} shape="circle" className="me-3" icon={<UserAddOutlined/>} size={"large"} title="Thêm thành viên"/>
@@ -69,7 +69,7 @@ const LocalizedModal = () => {
             <List
                 size="large"
                 bordered
-                dataSource={memberRecord.userID}
+                dataSource={data}
                 renderItem={(item) => <List.Item>{item}</List.Item>}
                 />
             </div>

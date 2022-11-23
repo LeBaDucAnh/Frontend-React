@@ -7,6 +7,7 @@ export const Action = {
     classList: [],
     courseList: [],
     flashCardList: [],
+    numberFlashcard: 0,
   }
   
   const reducer = (state=initialState, action) => {

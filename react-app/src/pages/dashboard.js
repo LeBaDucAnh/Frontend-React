@@ -116,13 +116,13 @@ export default function Dashboard(){
             <br/>
             <div className="infor m-3"><UsergroupAddOutlined /><span>{totalSearch} lớp học được tìm thấy</span></div>
             <Row gutter={16} className="mb-3">
-            {classListSearch.map(lop =>
-                <Col span={8} key={lop.id} className="mb-3" >
-                    <Link to={"/class/"+lop.id} >
-                        <Card title={lop.classname} bordered={false}> 
-                            <div><HomeOutlined /> <span>{lop.schoolname}</span></div>
-                            <div><FileTextOutlined /> <span>{lop.courses.length} học phần</span></div>
-                            <div><UserOutlined /> <span>{lop.members.length} thành viên</span></div>
+            {classListSearch.map(loptong =>
+                <Col span={8} key={loptong.id} className="mb-3" >
+                    <Link to={"/class/"+loptong.id} >
+                        <Card title={loptong.classname} bordered={false}> 
+                            <div><HomeOutlined /> <span>{loptong.schoolname}</span></div>
+                            <div><FileTextOutlined /> <span>{loptong.courses.length} học phần</span></div>
+                            <div><UserOutlined /> <span>{loptong.members.length} thành viên</span></div>
                         </Card>
                      </Link>
                 </Col>

@@ -8,6 +8,8 @@ import { Link, useParams } from "react-router-dom";
 import DeleteFolder from "components/DeleteFolder";
 import EditFolder from "components/EditFolder";
 import { BASE_URL } from "config";
+import { useSliceSelector, useSliceStore } from "utils/reduxHelper";
+import userEvent from "@testing-library/user-event";
 
 
 const { Header, Content, Footer } = Layout;
@@ -35,9 +37,25 @@ const menu = (
       ]}
     />
   );
-
+  function getCourseByFolderID(store, id){
+    let url = BASE_URL+'/api/getAllCourseInFolder/'+id;
+    console.log(url);
+    let options = {
+      headers: {
+        "Authorization": "Bearer " + localStorage.getItem("token")
+      }
+    };
+    fetch(url, options).then(resp => resp.json()).then(
+      result =>
+          store.setState({
+              courseList: result,
+          })
+    )
+  }
 
 export default function Folder(){
+
+
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -51,20 +69,23 @@ export default function Folder(){
     const handleCancel = () => {
         setIsModalOpen(false);
       };
-
+    const store = useSliceStore('library');
+    const user = JSON.parse(localStorage.getItem("user"));
+    const [courseList] = useSliceSelector('library', ['courseList']);
     const {id} = useParams();
     const [folder, setFolder] = useState({});
 
     useEffect(function(){
       let url = BASE_URL + '/api/getFolderBy/'+id;
       fetch(url).then(resp=>resp.json()).then(result => setFolder(result));
+      getCourseByFolderID(store, id);
     }, [])
 
     return (
         <Layout className="layout">
             <Content className="site-card-wrapper m-3">
             <Breadcrumb style={{margin: '16px 0',}}>
-              <Breadcrumb.Item>Trang chủ</Breadcrumb.Item>
+              <Breadcrumb.Item><Link to={"/"}>Trang chủ</Link></Breadcrumb.Item>
               <Breadcrumb.Item>Thư mục</Breadcrumb.Item>
             </Breadcrumb>
                 <Row>
@@ -117,14 +138,14 @@ export default function Folder(){
                 </Row>
                 <Row className="mt-5 ms-3">
                         <Space>
-                            <Card title="" style={{width: "500px"}} className="me-3">
-                                <p>6 thuật ngữ | Đức Anh Lê Bá</p>
-                                <p><h4> Học lập trình Python</h4></p>
+                          {courseList.map(course => 
+                          <Link to={"/learn-course/" + course.courseID}>
+                            <Card title="" style={{width: "500px"}} className="me-3" key={course.id}>
+                                <p> {user.fullname}</p>
+                                <p><h4> {course.courseID}</h4></p>
                             </Card>
-                            <Card title="" style={{width: "500px"}}>
-                                <p>6 thuật ngữ | Đức Anh Lê Bá</p>
-                                <p><h4> Học lập trình Python</h4></p>
-                            </Card>
+                          </Link>
+                            )}
                         </Space>
                 </Row>              
             </Content>

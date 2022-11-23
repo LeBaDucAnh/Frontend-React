@@ -16,7 +16,7 @@ import { useSliceStore, useSliceSelector } from "utils/reduxHelper";
 const { Content } = Layout;
 
 function getFlashCard(store, id){    
-    //const id = localStorage.getItem("courseid");
+    const id_course = localStorage.getItem("courseid");
     let url = BASE_URL + "/api/flashCardAll/" + id;
     console.log(url);
     let options = {
@@ -54,7 +54,7 @@ function Course() {
         <Layout>
             <Content>
             <Breadcrumb style={{margin: '16px 10px',}}>
-                <Breadcrumb.Item>Trang chủ</Breadcrumb.Item>
+                <Breadcrumb.Item><Link to={"/"}>Trang chủ</Link></Breadcrumb.Item>
                 <Breadcrumb.Item>Học phần</Breadcrumb.Item>
             </Breadcrumb>
                 <div className="mt-3">
@@ -63,7 +63,7 @@ function Course() {
                             <h3>{courseRecord?.data?.coursename}</h3>
                         </Col>
                         <Col span={12} className="pe-5" style={{ textAlign: "right" }}>
-                            <Button type="primary" size="large" icon={<SnippetsFilled />}>Kiểm tra</Button>
+                            <Button type="primary" style={{borderRadius: "10px"}} size="large" icon={<SnippetsFilled />}>Kiểm tra</Button>
                         </Col>
                     </Row>
 

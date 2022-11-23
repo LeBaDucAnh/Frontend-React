@@ -276,8 +276,8 @@ export default function ShowClass() {
                                     }}>
                                     {folderRecord.map(folder => 
                                     <Card title="" size="small" key={folder.id}>
-                                        <p>2 học phần</p>
-                                        <p><h4><FolderFilled /> Tháng 9</h4></p>
+                                        <p>Học phần</p>
+                                        <p><h4><FolderFilled /> {folder.id}</h4></p>
                                     </Card>
                                     )}
                                 </Space>
@@ -299,7 +299,7 @@ export default function ShowClass() {
                                         <p>
                                             <Row>
                                                 <Col span={12}>
-                                                    <h4>{member.userID}</h4>
+                                                    <h4>{member.id}</h4>
                                                 </Col>
                                                 <Col span={12} style={{ textAlign: "right" }}>
                                                     <Dropdown overlay={menu1}>
