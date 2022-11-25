@@ -98,12 +98,22 @@ async function getCourseByClass(store, id){
         //console.log(url);
         let res = await(fetch(url, options).then(resp=>resp.json()).then(
             result => {
+                console.log("Ketqua", result)
                 store.setState({
                     courseRecord: result,
-                    
+
                 })
         }));
+        
+        // let url1 = BASE_URL + "/api/getCourseBy/"+ course_id;
 
+        // let re = await(fetch(url1, options).then(resp=>resp.json()).then(
+        //     result =>{
+        //         store.setState({
+
+        //         })
+        //     }
+        // )
 }
 
 function GetMemberInClass(store, id){
@@ -175,7 +185,7 @@ export default function ShowClass() {
     const store = useSliceStore('class');
     const [memberRecord] = useSliceSelector('class', ['memberRecord']);
     const [classRecord] = useSliceSelector('class', ['classRecord']);
-    const [courseRecord, course_id] = useSliceSelector('class', ['courseRecord', 'course_id']);
+    const [courseRecord] = useSliceSelector('class', ['courseRecord']);
     const [folderRecord] = useSliceSelector('class', ['folderRecord']);
     const user = JSON.parse(localStorage.getItem("user"));
     const {id} = useParams();
@@ -259,9 +269,13 @@ export default function ShowClass() {
                                     {courseRecord.map(course_class =>
                                     
                                         <Card title="" size="small" key={course_class.id}>
-                                            <Link to={"/learn-course/"+course_class.courseID}><p>4 thuật ngữ | Admin </p>
-                                            <p><h4>python</h4></p>
-                                        </Link></Card>
+                                            <Link to={"/learn-course/"+course_class.courseID}>
+                                                
+                                                <p>{course_class.numberCard} thuật ngữ | {user.fullname} </p>
+                                                <p><h4>{course_class.coursesName}</h4></p>
+                                                {/* <p>ABC</p> */}
+                                            </Link>
+                                        </Card>
                                     
                                     )}
 
