@@ -48,7 +48,7 @@ const menu = (
     fetch(url, options).then(resp => resp.json()).then(
       result =>
           store.setState({
-              courseList: result,
+              courseList: result.result,
           })
     )
   }
@@ -83,7 +83,7 @@ export default function Folder(){
 
     return (
         <Layout className="layout">
-            <Content className="site-card-wrapper m-3">
+            <Content className="site-card-wrapper m-3" style = {{minHeight: "500px"}}>
             <Breadcrumb style={{margin: '16px 0',}}>
               <Breadcrumb.Item><Link to={"/"}>Trang chủ</Link></Breadcrumb.Item>
               <Breadcrumb.Item>Thư mục</Breadcrumb.Item>

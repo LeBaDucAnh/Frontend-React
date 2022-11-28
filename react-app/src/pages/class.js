@@ -199,8 +199,8 @@ export default function ShowClass() {
     
     return (
         
-        <Layout className="layout">
-            <Content className="site-card-wrapper m-3">
+        <Layout className="layout" >
+            <Content className="site-card-wrapper m-3" style={{minHeight: "600px"}}>
             <Breadcrumb style={{margin: '16px 0',}}>
                 <Breadcrumb.Item>Trang chủ</Breadcrumb.Item>
                 <Breadcrumb.Item>Lớp</Breadcrumb.Item>
@@ -288,11 +288,13 @@ export default function ShowClass() {
                                     style={{
                                         display: 'flex',
                                     }}>
-                                    {folderRecord.map(folder => 
-                                    <Card title="" size="small" key={folder.id}>
-                                        <p>Học phần</p>
-                                        <p><h4><FolderFilled /> {folder.id}</h4></p>
-                                    </Card>
+                                    {folderRecord.map(folder =>
+                                    <Link to = {"/folder/" + folder.folderID}>
+                                        <Card title="" size="small" key={folder.id}>
+                                            <p>{folder.numberCourse} học phần</p>
+                                            <p><h4><FolderFilled /> {folder.folderName}</h4></p>
+                                        </Card>
+                                    </Link>
                                     )}
                                 </Space>
                             </TabPane>
