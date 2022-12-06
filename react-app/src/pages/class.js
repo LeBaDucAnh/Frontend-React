@@ -315,7 +315,7 @@ export default function ShowClass() {
                                         <p>
                                             <Row>
                                                 <Col span={12}>
-                                                    <h4>{member.id}</h4>
+                                                    <h4>{member.fullname}</h4>
                                                 </Col>
                                                 <Col span={12} style={{ textAlign: "right" }}>
                                                     <Dropdown overlay={menu1}>

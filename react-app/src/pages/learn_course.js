@@ -3,7 +3,7 @@ import "./css/course.css";
 import "./css/main.css";
 import { Button, Breadcrumb, Layout, Row, Col, Avatar, Tabs, Menu, Dropdown, Modal, Card } from 'antd';
 import 'react-slideshow-image/dist/styles.css'
-import { UserOutlined, SnippetsFilled, EditOutlined } from '@ant-design/icons';
+import { UserOutlined, SnippetsFilled, EditOutlined, BookOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import AddToClassFolder from "components/AddToClass";
 import DeleteCourse from "components/DeleteCourse";
 import { Link } from "react-router-dom";
@@ -30,6 +30,8 @@ function getFlashCard(store, id){
         }));
     }
 
+
+    
 function Course() {
     
     const user = JSON.parse(localStorage.getItem("user"));
@@ -73,7 +75,7 @@ function Course() {
                 <div className="info-course ms-3 mt-5">
                     <Row>
                         <Col span={12}>
-                            
+                            <span>Tạo bởi</span>
                             <h5><Avatar icon={<UserOutlined />} style={{ backgroundColor: 'gray' }} /> <b>{user.fullname}</b></h5>
                         </Col>
                         <Col span={12} className="pe-2" style={{ textAlign: "right" }}>
@@ -83,8 +85,8 @@ function Course() {
                         </Col>
                     </Row>
                     <div className="info ms-2">
-                        <p>{courseRecord?.data?.description || ''}</p>
-                        <p>đã thêm vào CNTT3-K14 | Lập trình | CNTT3-K14</p>
+                        <p><ExclamationCircleOutlined /> {courseRecord?.data?.description || ''}</p>
+                        <p>đã thêm vào lớp CNTT3-K14 | Lập trình</p>
                     </div>
                 </div>
                 <div className="list-card mt-5 mb-5">

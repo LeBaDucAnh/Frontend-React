@@ -141,8 +141,8 @@ export default function Folder(){
                           {courseList.map(course => 
                           <Link to={"/learn-course/" + course.courseID}>
                             <Card title="" style={{width: "500px"}} className="me-3" key={course.id}>
-                                <p> {user.fullname}</p>
-                                <p><h4> {course.courseID}</h4></p>
+                                <p> {course.numberCard} thuật ngữ | {user.fullname}</p>
+                                <p><h4> {course.courseName}</h4></p>
                             </Card>
                           </Link>
                             )}
