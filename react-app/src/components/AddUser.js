@@ -2,35 +2,28 @@ import React, { useState, useEffect } from "react";
 import {Form, Button, Modal, Checkbox, Space, Input, List } from 'antd';
 import {UserAddOutlined} from "@ant-design/icons";
 import { BASE_URL } from "config";
-import { useSliceSelector, useSliceStore } from "utils/reduxHelper";
 import { useParams } from "react-router-dom";
 
 const { Search } = Input;
 const onSearch = (value) => console.log(value);
 
-// function GetMemberInClass(store, id){
-//   let url = BASE_URL + "/api/getAllMemberInClass/"+ id;
-//   console.log(url);
-//     let options = {
-//          headers: {
-//           "Authorization": "Bearer " + localStorage.getItem("token")
-//         }
-//       };
-//     fetch(url, options).then(resp => resp.json()).then(
-//         result=>{
-//             store.setState({
-//                 memberRecord: result,
-//             })
-//         });
-// }
-
-
-const data = [
-    'Lê Bá Đức Anh',
-    'Hoàng Duy Đạt',
-  ];
-
 const LocalizedModal = () => {
+
+  const [data, setData] = useState([]);
+
+  const GetMemberInClass = (id) => {
+    let url = BASE_URL + "/api/getAllMemberInClass/"+ id;
+    console.log(url);
+      let options = {
+          headers: {
+            "Authorization": "Bearer " + localStorage.getItem("token")
+          }
+        };
+      fetch(url, options).then(resp => resp.json()).then(
+          result=>{
+              setData([...data, ...result])
+          });
+  }
     const [open, setOpen] = useState(false);
   
     const showModal = () => {
@@ -41,15 +34,11 @@ const LocalizedModal = () => {
       setOpen(false);
     };
 
-    // const store = useSliceStore('class');
-    // const [memberRecord] = useSliceSelector('class', ['memberRecord']);
-    // const {id} = useParams();
-    // useEffect(
-    //   function(){
-    //     GetMemberInClass(store, id);
-    //   },[]
-    // );
-    //console.log(memberRecord);
+    const {id} = useParams();
+    useEffect(() => {
+        GetMemberInClass(id);
+      },[]);
+
     return (
         <>
         <Button onClick={showModal} shape="circle" className="me-3" icon={<UserAddOutlined/>} size={"large"} title="Thêm thành viên"/>
@@ -70,7 +59,11 @@ const LocalizedModal = () => {
                 size="large"
                 bordered
                 dataSource={data}
-                renderItem={(item) => <List.Item>{item}</List.Item>}
+                renderItem={(item) => (
+                  <List.Item key={item.id}>
+                    {item.fullname}
+                  </List.Item>
+                  )}
                 />
             </div>
           </Modal>

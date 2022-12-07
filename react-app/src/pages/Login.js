@@ -6,7 +6,7 @@ import {Col, Row} from "antd";
 import {Button, Checkbox, Input, Form } from 'antd';
 import React, { useState } from "react";
 import { BASE_URL } from "config";
-
+import logo from "../static/1.png";
 
 const {TabPane} = Tabs;
 
@@ -71,10 +71,15 @@ export default function Login(){
     return (
     <>
       <div id="login" className="d-flex">   
-        <div className="col-6">
-            <img src={anh} style = {{width: '100%', height: '100%'}} alt="" />
+        <div className="img-bg col-6">
+            {/* <h2>QUIZLEARN</h2> */}
+            {/* <img src={anh} style = {{width: '100%', height: '100%'}} alt="" /> */}
+            <img src={logo} style = {{width: '100%', height: '80%'}}/>
+            
         </div>
+        
         <div className="login-form col-6">
+        
         <Tabs defaultActiveKey="login" >
             <TabPane key="signup" tab="Đăng ký">
                 <Col offset={2}>

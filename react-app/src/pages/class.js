@@ -11,12 +11,12 @@ import EditClass from "components/EditClass";
 import DeleteClass from "components/DeleteClass";
 import { BASE_URL } from "config";
 import { useSliceSelector, useSliceStore } from "utils/reduxHelper";
+import YourCourse from "components/YourCourse";
+
 
 const { Header, Content, Footer } = Layout;
 const { Option } = Select;
-const handleChange = string => {
-    console.log('selected ${value}');
-};
+
 
 const menu = (
     <Menu
@@ -182,11 +182,18 @@ export default function ShowClass() {
         setIsModalOpen(false);
     };
     
+    const handleChange = (e) => {
+        setCouseselect(e.target.value);
+    };
+
     const store = useSliceStore('class');
     const [memberRecord] = useSliceSelector('class', ['memberRecord']);
     const [classRecord] = useSliceSelector('class', ['classRecord']);
     const [courseRecord] = useSliceSelector('class', ['courseRecord']);
     const [folderRecord] = useSliceSelector('class', ['folderRecord']);
+    const [courseselect, setCouseselect] =  useState('courseChoose');
+    const [yourcourseVisible, setYourcourse] = useState(false);
+    const [coursefolderVisible, setCoursefolder] = useState(false);
     const user = JSON.parse(localStorage.getItem("user"));
     const {id} = useParams();
 
@@ -195,7 +202,13 @@ export default function ShowClass() {
         getCourseByClass(store, id);
         GetMemberInClass(store, id);
         GetFolderInClass(store, id);
+        
     }, []);
+
+    useEffect(()=>{
+        courseselect === "yourcourse" ? setYourcourse(true) : setYourcourse(false);
+        courseselect === "foldercourse" ? setCoursefolder(true) : setCoursefolder(false);
+    }, [courseselect]);
     
     return (
         
@@ -222,18 +235,23 @@ export default function ShowClass() {
                                         }}
                                         placement="bottomLeft"
                                         onChange={handleChange}
+                                        value={courseselect}
                                     >
+                                        <Option value="courseChoose">-- Chọn học phần --</Option>
                                         <Option value="yourcourse">Học phần của bạn</Option>
                                         <Option value="foldercourse">Học phần trong thư mục</Option>
                                     </Select>
                                 </Card>
+
+                                 {yourcourseVisible && <YourCourse id ={id}/>}       
+
                                 <Card className="mt-2">
                                     <Row>
                                         <Col span={20}>
                                             <h4>Học lập trình Python</h4>
                                         </Col>
                                         <Col span={4} style={{ textAlign: "right" }}>
-                                            <Button type="danger" size="large" icon={<MinusOutlined />} />
+                                            <Button  size="large" type="danger" icon={<MinusOutlined />} />
                                         </Col>
                                     </Row>
                                 </Card>
@@ -249,7 +267,7 @@ export default function ShowClass() {
                                 </Card>
                             </Modal>
                             <AddUser id={id} />
-                            <AddFolder />
+                            <AddFolder id = {id}/>
                             <Dropdown overlay={menu}>
                                 <Button shape="circle" icon={<EllipsisOutlined />} size={"large"} className="me-3" />
                             </Dropdown>
