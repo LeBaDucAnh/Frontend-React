@@ -10,6 +10,7 @@ export const Action = {
     numberCard : 0,
     course_id: [],
     memberRecord: [],
+    admin: [],
     // numberOfCourse: 0,
     // numberOfMember: 0
   }

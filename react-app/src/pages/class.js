@@ -104,16 +104,6 @@ async function getCourseByClass(store, id){
 
                 })
         }));
-        
-        // let url1 = BASE_URL + "/api/getCourseBy/"+ course_id;
-
-        // let re = await(fetch(url1, options).then(resp=>resp.json()).then(
-        //     result =>{
-        //         store.setState({
-
-        //         })
-        //     }
-        // )
 }
 
 function GetMemberInClass(store, id){
@@ -127,9 +117,11 @@ function GetMemberInClass(store, id){
       fetch(url, options).then(resp => resp.json()).then(
           result=>{
               store.setState({
-                  memberRecord: result,
+                  memberRecord: result.data,
+                  admin: result.admin,
               })
           });
+    
   }
 
 
@@ -191,6 +183,7 @@ export default function ShowClass() {
     const [classRecord] = useSliceSelector('class', ['classRecord']);
     const [courseRecord] = useSliceSelector('class', ['courseRecord']);
     const [folderRecord] = useSliceSelector('class', ['folderRecord']);
+    const [admin] = useSliceSelector('class',['admin']);
     const [courseselect, setCouseselect] =  useState('courseChoose');
     const [yourcourseVisible, setYourcourse] = useState(false);
     const [coursefolderVisible, setCoursefolder] = useState(false);
@@ -209,7 +202,9 @@ export default function ShowClass() {
         courseselect === "yourcourse" ? setYourcourse(true) : setYourcourse(false);
         courseselect === "foldercourse" ? setCoursefolder(true) : setCoursefolder(false);
     }, [courseselect]);
-    
+
+    console.log('member', memberRecord);
+    console.log('admin',admin);
     return (
         
         <Layout className="layout" >
@@ -323,10 +318,17 @@ export default function ShowClass() {
                                     style={{
                                         display: 'flex',
                                     }}>
-                                    <Card title="" size="small">
+                                    {/* <Card title="" size="small">
                                         <p>Quản trị viên lớp học</p>
                                         <p><h4>{user.fullname}</h4></p>
-                                    </Card>
+                                    </Card> */}
+
+                                    {admin.map(ad =>
+                                    <Card title="" size="small">
+                                        <p>Quản trị viên lớp học</p>
+                                        <p><h4>{ad.adname}</h4></p>
+                                    </Card>     
+                                    )}
                                     {memberRecord.map(member => 
                                     <Card title="" size="small" key={member.id}>
                                         <p>Thành viên</p>
