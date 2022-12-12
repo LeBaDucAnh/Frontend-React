@@ -53,6 +53,8 @@ const menu = (
     )
   }
 
+  
+
 export default function Folder(){
 
 
@@ -74,6 +76,7 @@ export default function Folder(){
     const [courseList] = useSliceSelector('library', ['courseList']);
     const {id} = useParams();
     const [folder, setFolder] = useState({});
+    const [admin] = useSliceSelector('class',['admin']);
 
     useEffect(function(){
       let url = BASE_URL + '/api/getFolderBy/'+id;
@@ -141,7 +144,7 @@ export default function Folder(){
                           {courseList.map(course => 
                           <Link to={"/learn-course/" + course.courseID}>
                             <Card title="" style={{width: "500px"}} className="me-3" key={course.id}>
-                                <p> {course.numberCard} thuật ngữ | {user.fullname}</p>
+                                <p> {course.numberCard} thuật ngữ | {admin[0].adname}</p>
                                 <p><h4> {course.courseName}</h4></p>
                             </Card>
                           </Link>

@@ -30,7 +30,21 @@ function getFlashCard(store, id){
         }));
     }
 
-
+    // function GetAdminInClass(store, id){
+    //     let url = BASE_URL + "/api/getAllMemberInClass/"+ id;
+    //     console.log(url);
+    //       let options = {
+    //            headers: {
+    //             "Authorization": "Bearer " + localStorage.getItem("token")
+    //           }
+    //         };
+    //       fetch(url, options).then(resp => resp.json()).then(
+    //           result=>{
+    //               store.setState({
+    //                   admin: result.admin,
+    //               })
+    //           });
+    //   }
     
 function Course() {
     
@@ -38,6 +52,7 @@ function Course() {
     const {id} = useParams();
     const store = useSliceStore('library');
     const [flashCardList] = useSliceSelector('library', ['flashCardList']);
+    // const [admin] = useSliceSelector('class',['admin']);
     const [courseRecord, setCourseRecord] = useState({});
      useEffect(
         function (){
@@ -50,6 +65,7 @@ function Course() {
               };
               fetch(url, options).then(resp=>resp.json()).then(result => setCourseRecord(result));
             },[]);
+        // GetAdminInClass(store, id);
 
     return (
         
@@ -76,7 +92,7 @@ function Course() {
                     <Row>
                         <Col span={12}>
                             <span>Tạo bởi</span>
-                            <h5><Avatar icon={<UserOutlined />} style={{ backgroundColor: 'gray' }} /> <b>{user.fullname}</b></h5>
+                            <h5><Avatar icon={<UserOutlined />} style={{ backgroundColor: 'gray' }} /> <b>{courseRecord?.data?.adname}</b></h5>
                         </Col>
                         <Col span={12} className="pe-2" style={{ textAlign: "right" }}>
                             <AddToClassFolder />

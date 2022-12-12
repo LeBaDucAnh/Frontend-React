@@ -10,7 +10,7 @@ import { Button, Space, Card, Row, Col, Dropdown } from 'antd';
 
 
 const { Search } = Input;
-const onSearch = (value) => console.log(value);
+// const onSearch = (value) => console.log(value);
 
 const AddUser = ({ id }) => {
 
@@ -132,7 +132,7 @@ const AddUser = ({ id }) => {
           <p className="mt-3" style={{ fontSize: "20px" }}>Danh sách thành viên lớp</p>
         </div>
         <div style={{
-        height: 100,
+        height: 200,
         padding: '0 16px',
       }}>
           <List 

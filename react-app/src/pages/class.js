@@ -116,12 +116,14 @@ function GetMemberInClass(store, id){
         };
       fetch(url, options).then(resp => resp.json()).then(
           result=>{
+            console.log('thanhvien',result);
+            console.log('admin name', result.admin);
               store.setState({
-                  memberRecord: result.data,
-                  admin: result.admin,
+                admin: result.admin,
+                memberRecord: result.data,
+                  
               })
           });
-    
   }
 
 
@@ -141,24 +143,24 @@ function GetMemberInClass(store, id){
           });
   }
 
-function getNameCourseById(store, course_id){
-    let url = BASE_URL + "/api/getCourseBy/"+ course_id;
-    console.log(url);
-    let options = {
-            headers: {
-              "Authorization": "Bearer " + localStorage.getItem("token")
-            }
-          };
-        //console.log(url);
-        fetch(url, options).then(resp=>resp.json()).then(
-            result => {
-                store.setState({
-                    nameCourse: result.data.coursename,
-                    //courseRecord: result.data,
-                    numberCard: result.numberFlashcard,
-                })
-        });
-}
+// function getNameCourseById(store, course_id){
+//     let url = BASE_URL + "/api/getCourseBy/"+ course_id;
+//     console.log(url);
+//     let options = {
+//             headers: {
+//               "Authorization": "Bearer " + localStorage.getItem("token")
+//             }
+//           };
+//         //console.log(url);
+//         fetch(url, options).then(resp=>resp.json()).then(
+//             result => {
+//                 store.setState({
+//                     nameCourse: result.data.coursename,
+//                     //courseRecord: result.data,
+//                     numberCard: result.numberFlashcard,
+//                 })
+//         });
+// }
 
 export default function ShowClass() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -187,8 +189,9 @@ export default function ShowClass() {
     const [courseselect, setCouseselect] =  useState('courseChoose');
     const [yourcourseVisible, setYourcourse] = useState(false);
     const [coursefolderVisible, setCoursefolder] = useState(false);
-    const user = JSON.parse(localStorage.getItem("user"));
+    //const user = JSON.parse(localStorage.getItem("user"));
     const {id} = useParams();
+    console.log("id_class", id);
 
     useEffect(function(){
         GetClassByID(store, id);
@@ -203,6 +206,11 @@ export default function ShowClass() {
         courseselect === "foldercourse" ? setCoursefolder(true) : setCoursefolder(false);
     }, [courseselect]);
 
+    useEffect(() =>{
+        console.log(('classRecord', classRecord))
+    }, [classRecord]
+    );
+
     console.log('member', memberRecord);
     console.log('admin',admin);
     return (
@@ -210,7 +218,7 @@ export default function ShowClass() {
         <Layout className="layout" >
             <Content className="site-card-wrapper m-3" style={{minHeight: "600px"}}>
             <Breadcrumb style={{margin: '16px 0',}}>
-                <Breadcrumb.Item>Trang chủ</Breadcrumb.Item>
+                <Breadcrumb.Item><Link to={"/"}>Trang chủ</Link></Breadcrumb.Item>
                 <Breadcrumb.Item>Lớp</Breadcrumb.Item>
             </Breadcrumb>
                 <div>
@@ -273,6 +281,7 @@ export default function ShowClass() {
                     <Col span={16}>
                         <Tabs defaultActiveKey="class" className="ms-5">
                             <TabPane key="class" tab="Các học phần">
+                                
                                 <Space
                                     direction="vertical"
                                     size="middle"
@@ -284,7 +293,7 @@ export default function ShowClass() {
                                         <Card title="" size="small" key={course_class.id}>
                                             <Link to={"/learn-course/"+course_class.courseID}>
                                                 
-                                                <p>{course_class.numberCard} thuật ngữ | {user.fullname} </p>
+                                                <p>{course_class.numberCard} thuật ngữ | {admin[0].adname} </p>
                                                 <p><h4>{course_class.coursesName}</h4></p>
                                                 {/* <p>ABC</p> */}
                                             </Link>
@@ -293,6 +302,7 @@ export default function ShowClass() {
                                     )}
 
                                 </Space>
+                                
                             </TabPane>
                             <TabPane key="folder" tab="Thư mục">
                                 <Space
@@ -324,11 +334,12 @@ export default function ShowClass() {
                                     </Card> */}
 
                                     {admin.map(ad =>
-                                    <Card title="" size="small">
+                                     <Card title="" size="small">
                                         <p>Quản trị viên lớp học</p>
                                         <p><h4>{ad.adname}</h4></p>
                                     </Card>     
-                                    )}
+                                     )}
+
                                     {memberRecord.map(member => 
                                     <Card title="" size="small" key={member.id}>
                                         <p>Thành viên</p>

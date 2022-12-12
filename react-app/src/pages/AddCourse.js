@@ -17,6 +17,9 @@ export default function AddCourse() {
     const [keyword, setKeyword] = useState('');
     const [define, setDefine] = useState('');
     const userid = localStorage.getItem('userid');
+    const ad = JSON.parse(localStorage.getItem("user"));
+    const adname = ad.fullname;
+    console.log('adname', adname);
     const handleChangeDisplay = e => {
         setDisplay(e);
         console.log(e);
@@ -29,7 +32,7 @@ export default function AddCourse() {
     const createCourse = async function (e) {
         //e.preventDefault();
         console.log(e);
-        let data = { coursename: namecourse, description: description, userID: userid, allowDisplay: display, allowEdit: edit };
+        let data = { coursename: namecourse, description: description, userID: userid, allowDisplay: display, allowEdit: edit, adname: adname };
         data = JSON.stringify(data);
         let options = {
             method: "POST",
