@@ -86,7 +86,7 @@ function Course() {
                     </Row>
                     <div className="info ms-2">
                         <p><ExclamationCircleOutlined /> {courseRecord?.data?.description || ''}</p>
-                        <p>đã thêm vào lớp CNTT3-K14 | Lập trình</p>
+                        {/* <p>đã thêm vào lớp CNTT3-K14 | Lập trình</p> */}
                     </div>
                 </div>
                 <div className="list-card mt-5 mb-5">

@@ -11,6 +11,10 @@ export const Action = {
     course_id: [],
     memberRecord: [],
     admin: [],
+    memberSearch: [],
+    searchParams: {
+      keyword: '',
+    },
     // numberOfCourse: 0,
     // numberOfMember: 0
   }
