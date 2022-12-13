@@ -72,6 +72,8 @@ const AddUser = ({ id }) => {
 
   const store = useSliceStore('class');
   const [memberSearch, searchParams] = useSliceSelector('class', ['memberSearch', 'searchParams']);
+  // const [member_id, setMemberId] = useState(0);
+  
   //const {id} = useParams();
 
   const setSearchParams = function (params) {
@@ -84,6 +86,29 @@ const AddUser = ({ id }) => {
   const searchUser = function (e) {
     // e.preventDefault();
     SearchUserToAdd(store);
+  }
+
+  const AddMemberToClass = (member)=> async function(e) {
+    e.preventDefault();
+    let userid = localStorage.getItem("userid");
+    let data = {userID: member.id, classID: id};
+    data = JSON.stringify(data);
+    console.log(data);
+    let options = {
+      method: "POST",
+      body: data,
+      headers: {"Content-type":"application/json"}
+    };
+    let url = BASE_URL + "/api/addMemberToClass/"+userid;
+    let respone = await(fetch(url, options));
+    if(respone.status != 201){
+      alert("Lỗi khi thêm");
+    }
+    // else{
+    //   // alert('Thêm thành viên mới thành công');
+    //   // window.location.href = "/class/"+id;
+      
+    // }
   }
 
   useEffect(() => {
@@ -102,7 +127,6 @@ const AddUser = ({ id }) => {
       >
         <div><Search style={{ width: "100%" }} allowClear size="large" placeholder="Nhập tên thành viên muốn thêm..." onSearch={searchUser} enterButton value={searchParams.keyword} onChange={e => setSearchParams({ keyword: e.target.value })} /></div>
         <div className="mt-3">
-
           <Space
             direction="vertical"
             size="middle"
@@ -110,7 +134,7 @@ const AddUser = ({ id }) => {
               display: 'flex',
             }}>
             {memberSearch.map(member =>
-              <Card title="" size="small" style={{height: "50px"}} key={member.id}>
+              <Card title="" size="small" style={{height: "50px"}} key={member.id}  >
                 {/* <p>Thành viên</p> */}
                 <p>
                   <Row>
@@ -118,7 +142,7 @@ const AddUser = ({ id }) => {
                       <h4>{member.fullname}</h4>
                     </Col>
                     <Col span={4} style={{ textAlign: "right" }}>
-                      <Button type="primary" size="small" icon={<PlusOutlined />} />
+                      <Button type="primary" size="small" icon={<PlusOutlined />} onClick={AddMemberToClass(member)}/>
                     </Col>
                   </Row>
                 </p>
