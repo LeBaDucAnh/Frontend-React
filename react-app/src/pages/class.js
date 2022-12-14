@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Layout, Breadcrumb, Tabs, Button, Space, Card, Row, Col, Popover, Menu, Dropdown, Modal, Select } from 'antd';
+import { Layout, message ,Breadcrumb, Tabs, Button, Space, Card, Row, Col, Popover, Menu, Dropdown, Modal, Select } from 'antd';
 import HeaderPage from "components/Header";
 import "./css/main.css";
 import { DeleteOutlined, MinusOutlined, EditFilled, UserOutlined, FolderFilled, PlusOutlined, EllipsisOutlined, BankFilled, BookFilled, InfoCircleFilled } from "@ant-design/icons";
@@ -9,6 +9,7 @@ import AddUser from "components/AddUser";
 import AddFolder from "components/AddFolder";
 import EditClass from "components/EditClass";
 import DeleteClass from "components/DeleteClass";
+import DeleteMemberInClass from "components/DeleteMemberClass";
 import { BASE_URL } from "config";
 import { useSliceSelector, useSliceStore } from "utils/reduxHelper";
 import YourCourse from "components/YourCourse";
@@ -54,9 +55,7 @@ const menu1 = (
             {
                 key: '5',
                 label: (
-                    <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
-                        Xóa
-                    </a>
+                    <DeleteMemberInClass />
                 ),
             },
         ]}
@@ -143,24 +142,13 @@ function GetMemberInClass(store, id){
           });
   }
 
-// function getNameCourseById(store, course_id){
-//     let url = BASE_URL + "/api/getCourseBy/"+ course_id;
-//     console.log(url);
+//   function deleteMemberInClass (){
 //     let options = {
-//             headers: {
-//               "Authorization": "Bearer " + localStorage.getItem("token")
-//             }
-//           };
-//         //console.log(url);
-//         fetch(url, options).then(resp=>resp.json()).then(
-//             result => {
-//                 store.setState({
-//                     nameCourse: result.data.coursename,
-//                     //courseRecord: result.data,
-//                     numberCard: result.numberFlashcard,
-//                 })
-//         });
-// }
+//         method: "DELETE",
+//         headers:{"Authorization": "Bearer " + localStorage.getItem("token")}
+//       };
+//     let url = BASE_URL + "api/deleteMemberInClass/"+
+//   }
 
 export default function ShowClass() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -179,6 +167,11 @@ export default function ShowClass() {
     const handleChange = (e) => {
         setCouseselect(e.target.value);
     };
+
+    // const handleButtonClick = (member) => {
+    //     //message.info('Click on.');
+    //     <DeleteMemberInClass id = {member.id}/>
+    //   };
 
     const store = useSliceStore('class');
     const [memberRecord] = useSliceSelector('class', ['memberRecord']);
@@ -272,7 +265,7 @@ export default function ShowClass() {
                             <AddUser id={id} />
                             <AddFolder id = {id}/>
                             <Dropdown overlay={menu}>
-                                <Button shape="circle" icon={<EllipsisOutlined />} size={"large"} className="me-3" />
+                                <Button shape="circle" icon={<EllipsisOutlined />} size={"large"} className="me-3"/>
                             </Dropdown>
                         </Col>
                     </Row>
@@ -349,9 +342,9 @@ export default function ShowClass() {
                                                     <h4>{member.fullname}</h4>
                                                 </Col>
                                                 <Col span={12} style={{ textAlign: "right" }}>
-                                                    <Dropdown overlay={menu1}>
-                                                        <Button type="text" icon={<EllipsisOutlined />} size={"large"} className="me-3" />
-                                                    </Dropdown>
+                                                    <Button type="text" icon={<DeleteOutlined />} size={"small"} className="me-3" style={{backgroundColor: "#f2f2f2"}}>
+                                                        <DeleteMemberInClass id={member.id}/>
+                                                    </Button>
                                                 </Col>
                                             </Row>
                                         </p>
